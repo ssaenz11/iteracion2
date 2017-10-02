@@ -1,0 +1,29 @@
+URL's DE EJEMPLO - PRUEBAS EN POSTMAN
+
+GET (TODOS LOS VIDEOS)
+
+http://localhost:8080/VideoAndes/rest/videos
+
+GET (VIDEO POR ID)
+
+http://localhost:8080/VideoAndes/rest/videos/1
+
+GET (VIDEO POR NOMBRE)
+
+http://localhost:8080/VideoAndes/rest/videos/nombre?nombre=Orgullo y Prejuicio
+
+POST 
+
+http://localhost:8080/VideoAndes/rest/videos
+
+JSON:
+
+	{
+        "id": 13,
+        "name": "Supernatural",
+        "duration": 160
+    }
+	
+PUT
+
+http://localhost:8080/VideoAndes/rest/videos
