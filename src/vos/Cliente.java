@@ -13,7 +13,6 @@ public class Cliente {
 	 */
 	@JsonProperty(value="id")
 	private Long id;
-
 	
 	/**
 	 * Nombre del Cliente
