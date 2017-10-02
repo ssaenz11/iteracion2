@@ -77,7 +77,7 @@ public class DAOTablaCliente {
 		public ArrayList<Cliente> darClientes() throws SQLException, Exception {
 			ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-			String sql = "SELECT * FROM Cliente";
+			String sql = "SELECT * FROM CLIENTE_TABLA1";
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -104,7 +104,7 @@ public class DAOTablaCliente {
 		public ArrayList<Cliente> buscarClientePorName(String name) throws SQLException, Exception {
 			ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-			String sql = "SELECT * FROM Cliente WHERE NAME ='" + name + "'";
+			String sql = "SELECT * FROM CLIENTE_TABLA1 WHERE NAME ='" + name + "'";
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -132,7 +132,7 @@ public class DAOTablaCliente {
 		{
 			Cliente cliente = null;
 
-			String sql = "SELECT * FROM Cliente WHERE ID =" + id;
+			String sql = "SELECT * FROM CLIENTE_TABLA1 WHERE ID =" + id;
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -159,7 +159,7 @@ public class DAOTablaCliente {
 		 */
 		public void addCliente(Cliente Cliente) throws SQLException, Exception {
 
-			String sql = "INSERT INTO Cliente VALUES (";
+			String sql = "INSERT INTO CLIENTE_TABLA1 VALUES (";
 			sql += Cliente.getId() + ",'";
 			sql += Cliente.getNombre() + "',";
 			sql += Cliente.getCorreo() + "',";
@@ -181,7 +181,7 @@ public class DAOTablaCliente {
 		 */
 		public void updateCliente(Cliente Cliente) throws SQLException, Exception {
 
-			String sql = "UPDATE Cliente SET ";
+			String sql = "UPDATE CLIENTE_TABLA1 SET ";
 			sql += "NOMBRE='" + Cliente.getNombre() + "',";
 			sql += "CORREO=" + Cliente.getCorreo()+ "',";
 			sql += "CEDULA=" + Cliente.getCedula()+ "',";
@@ -203,7 +203,7 @@ public class DAOTablaCliente {
 		 */
 		public void deleteCliente(Cliente Cliente) throws SQLException, Exception {
 
-			String sql = "DELETE FROM Cliente";
+			String sql = "DELETE FROM CLIENTE_TABLA1";
 			sql += " WHERE ID = " + Cliente.getId();
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
