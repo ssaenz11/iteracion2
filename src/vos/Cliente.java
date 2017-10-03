@@ -8,12 +8,7 @@ public class Cliente {
 	
 ////Atributos
 
-	/**
-	 * Id del video
-	 */
-	@JsonProperty(value="id")
-	private Long id;
-	
+
 	/**
 	 * Nombre del Cliente
 	 */
@@ -30,7 +25,7 @@ public class Cliente {
 	 * Cedula  del Cliente
 	 */
 	@JsonProperty(value="cedula")
-	private Long  cedula;
+	private int  cedula;
 	
 	
 
@@ -44,31 +39,18 @@ public class Cliente {
 	 * @param cedula - cedula del Cliente. name != null
 	 */
 	
-	public Cliente(@JsonProperty(value="id")Long id,
-			@JsonProperty(value="nombre")String nombre,
-			@JsonProperty(value="cedula")Long cedula,
+	public Cliente(@JsonProperty(value="nombre")String nombre,
+			@JsonProperty(value="cedula")int cedula,
 			@JsonProperty(value="correo")String correo)
 	{
 		super();
-		this.id = id;
+		
 		this.nombre= nombre;
 		this.correo= correo;
 		this.cedula= cedula;
 	}
 
 
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 
 
@@ -101,14 +83,14 @@ public class Cliente {
 
 
 
-	public Long getCedula() {
+	public int getCedula() {
 		return cedula;
 	}
 
 
 
 
-	public void setCedula(Long cedula) {
+	public void setCedula(int cedula) {
 		this.cedula = cedula;
 	}
 	

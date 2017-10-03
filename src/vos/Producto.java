@@ -11,8 +11,8 @@ public class Producto
 	/**
 	 * Id del producto
 	 */
-	@JsonProperty(value="id")
-	private Long id;
+	@JsonProperty(value="cantidad")
+	private int  cantidad;
 
 	/**
 	 * id_restaurante del producto
@@ -38,14 +38,14 @@ public class Producto
 	@JsonProperty(value="descripcion")
 	private String descripcion  ;
 
-	public Producto(@JsonProperty(value="id")Long id,
+	public Producto(@JsonProperty(value="cantidad")int id,
 			@JsonProperty(value="id_restaurante")Long id_restaurante,
 			@JsonProperty(value="descripcion")String descripcion,
 			@JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="precio")double precio)
 	{
 		super();
-		this.id= id;
+		this.cantidad= id;
 		this.id_restaurante= id_restaurante;
 		this.descripcion = descripcion;
 		this.nombre= nombre;
@@ -54,13 +54,19 @@ public class Producto
 
 	}
 
-	public Long getId() {
-		return id;
+	
+
+	public int getCantidad() {
+		return cantidad;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
+
+
 
 	public Long getId_restaurante() {
 		return id_restaurante;

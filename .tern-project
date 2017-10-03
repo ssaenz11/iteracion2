@@ -6,12 +6,13 @@
     "outline": {
       
     },
-    "angular": {
+    "angular1": {
       
     }
   },
   "libs": [
     "ecma5",
     "browser"
-  ]
+  ],
+  "ecmaVersion": 5
 }

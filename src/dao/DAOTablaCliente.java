@@ -84,11 +84,11 @@ public class DAOTablaCliente {
 			ResultSet rs = prepStmt.executeQuery();
 
 			while (rs.next()) {
+				
 				String name = rs.getString("NOMBRE");
-				Long id = rs.getLong("ID");
-				Long cedula = rs.getLong("CEDULA");
+				int cedula = rs.getInt("CEDULA");
 				String correo = rs.getString("CORREO");
-				clientes.add(new Cliente(id, name, cedula, correo));
+				clientes.add(new Cliente(name, cedula, correo));
 			}
 			return clientes;
 		}
@@ -112,10 +112,10 @@ public class DAOTablaCliente {
 
 			while (rs.next()) {
 				String name2 = rs.getString("Nombre");
-				Long id = rs.getLong("ID");
-				Long cedula = rs.getLong("CEDULA");
+				
+				int cedula = rs.getInt("CEDULA");
 				String correo = rs.getString("CORREO");
-				clientes.add(new Cliente(id, name2, cedula, correo));
+				clientes.add(new Cliente( name2, cedula, correo));
 			}
 
 			return clientes;
@@ -132,7 +132,7 @@ public class DAOTablaCliente {
 		{
 			Cliente cliente = null;
 
-			String sql = "SELECT * FROM CLIENTE_TABLA1 WHERE ID =" + id;
+			String sql = "SELECT * FROM CLIENTE_TABLA1 WHERE CEDULA =" + id;
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -140,10 +140,10 @@ public class DAOTablaCliente {
 
 			if(rs.next()) {
 				String name2 = rs.getString("Nombre");
-				Long id2 = rs.getLong("ID");
-				Long cedula = rs.getLong("CEDULA");
+				
+				int cedula = rs.getInt("CEDULA");
 				String correo = rs.getString("CORREO");
-				cliente =(new Cliente(id2, name2, cedula, correo));
+				cliente =(new Cliente( name2, cedula, correo));
 			}
 
 			return cliente;
@@ -160,10 +160,10 @@ public class DAOTablaCliente {
 		public void addCliente(Cliente Cliente) throws SQLException, Exception {
 
 			String sql = "INSERT INTO CLIENTE_TABLA1 VALUES (";
-			sql += Cliente.getId() + ",'";
-			sql += Cliente.getNombre() + "',";
-			sql += Cliente.getCorreo() + "',";
-			sql += Cliente.getCedula() + ")";
+		    sql += Cliente.getCedula() + ",'";
+			sql += Cliente.getNombre() + "','";
+			sql += Cliente.getCorreo() + "')";
+			
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -182,10 +182,10 @@ public class DAOTablaCliente {
 		public void updateCliente(Cliente Cliente) throws SQLException, Exception {
 
 			String sql = "UPDATE CLIENTE_TABLA1 SET ";
-			sql += "NOMBRE='" + Cliente.getNombre() + "',";
-			sql += "CORREO=" + Cliente.getCorreo()+ "',";
-			sql += "CEDULA=" + Cliente.getCedula()+ "',";
-			sql += " WHERE ID = " + Cliente.getId();
+			sql += "NOMBRE ='" + Cliente.getNombre() + "',";
+			sql += "CORREO ='" + Cliente.getCorreo()+ "'";
+			
+			sql += " WHERE CEDULA = " + Cliente.getCedula();
 
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -204,7 +204,7 @@ public class DAOTablaCliente {
 		public void deleteCliente(Cliente Cliente) throws SQLException, Exception {
 
 			String sql = "DELETE FROM CLIENTE_TABLA1";
-			sql += " WHERE ID = " + Cliente.getId();
+			sql += " WHERE CEDULA = " + Cliente.getCedula();
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
