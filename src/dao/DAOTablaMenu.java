@@ -74,10 +74,10 @@ public class DAOTablaMenu
 			
 			double precio = rs.getDouble("PRECIO");
 			Long ID = rs.getLong("ID");
-			Long entrada = rs.getLong("ID_ENTRADA");
-			Long postre = rs.getLong("ID_POSTRE");
-			Long bebida = rs.getLong("ID_BEBIDA");
-			Long platoFuerte = rs.getLong("ID_PLATO_FUERTE");
+			String entrada = rs.getString("ID_ENTRADA");
+			String postre = rs.getString("ID_POSTRE");
+			String bebida = rs.getString("ID_BEBIDA");
+			String platoFuerte = rs.getString("ID_PLATO_FUERTE");
 			Menus.add(new Menu(ID, bebida, entrada, platoFuerte, postre, precio));
 		}
 		return Menus;
@@ -105,10 +105,10 @@ public class DAOTablaMenu
 		if(rs.next()) {
 			double precio = rs.getDouble("PRECIO");
 			Long ID = rs.getLong("ID");
-			Long entrada = rs.getLong("ID_ENTRADA");
-			Long postre = rs.getLong("ID_POSTRE");
-			Long bebida = rs.getLong("ID_BEBIDA");
-			Long platoFuerte = rs.getLong("ID_PLATO_FUERTE");
+			String entrada = rs.getString("ID_ENTRADA");
+			String postre = rs.getString("ID_POSTRE");
+			String bebida = rs.getString("ID_BEBIDA");
+			String platoFuerte = rs.getString("ID_PLATO_FUERTE");
 			Menu =(new Menu(ID, bebida, entrada, platoFuerte, postre, precio));
 		}
 
@@ -126,12 +126,12 @@ public class DAOTablaMenu
 	public void addMenu(Menu Menu) throws SQLException, Exception {
 
 		String sql = "INSERT INTO Menu_TABLA VALUES (";
-	    sql += Menu.getId()+ ",";
-		sql += Menu.getId_entrada() + ",";
-		sql += Menu.getValor() + ",";
-		sql += Menu.getId_postre() + ",";
-		sql += Menu.getId_bebida()+ ",";
-		sql += Menu.getId_plato_fuerte()+ ")";
+	    sql += Menu.getId()+ ",'";
+		sql += Menu.getId_entrada() + "',";
+		sql += Menu.getValor() + ",'";
+		sql += Menu.getId_postre() + "','";
+		sql += Menu.getId_bebida()+ "','";
+		sql += Menu.getId_plato_fuerte()+ "')";
 		
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -151,11 +151,11 @@ public class DAOTablaMenu
 	public void updateMenu(Menu Menu) throws SQLException, Exception {
 
 		String sql = "UPDATE Menu_TABLA SET ";
-		sql += "ID_ENTRADA =" + Menu.getId_entrada() + ",";
+		sql += "ID_ENTRADA ='" + Menu.getId_entrada() + "',";
 		sql += "PRECIO =" + Menu.getValor() + ",";
-		sql += "ID_POSTRE =" + Menu.getId_postre() + ",";
-		sql += "ID_BEBIDA =" + Menu.getId_bebida() + ",";
-		sql += "ID_PLATO_FUERTE =" + Menu.getId_plato_fuerte()+ " ";
+		sql += "ID_POSTRE ='" + Menu.getId_postre() + "',";
+		sql += "ID_BEBIDA ='" + Menu.getId_bebida() + "',";
+		sql += "ID_PLATO_FUERTE ='" + Menu.getId_plato_fuerte()+ " '";
 		
 		sql += " WHERE ID = " + Menu.getId();
 

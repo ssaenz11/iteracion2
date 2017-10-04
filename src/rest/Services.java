@@ -17,8 +17,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.TM;
+import vos.Acompañamiento;
+import vos.Bebida;
 import vos.Cliente;
+import vos.Entrada;
+import vos.Menu;
 import vos.Pedido;
+import vos.PlatoFuerte;
+import vos.Postre;
 
 
 
@@ -234,8 +240,125 @@ public class Services {
 		return Response.status(200).entity(pedido).build();
 	}
 	
+	
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los Postres de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/PostreAndes/rest/Postres
+	 * @return Json con todos los Postres de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/Postres")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getPostres() {
+		TM tm = new TM(getPath());
+		List<Postre> Postres;
+		try {
+			Postres = tm.darPostres();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Postres).build();
+	}
+	
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los PlatoFuertes de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/PlatoFuerteAndes/rest/PlatoFuertes
+	 * @return Json con todos los PlatoFuertes de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/PlatosFuertes")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getPlatoFuertes() {
+		TM tm = new TM(getPath());
+		List<PlatoFuerte> PlatoFuertes;
+		try {
+			PlatoFuertes = tm.darPlatoFuertes();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(PlatoFuertes).build();
+	}
+	
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los Entradas de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/EntradaAndes/rest/Entradas
+	 * @return Json con todos los Entradas de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/Entradas")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getEntradas() {
+		TM tm = new TM(getPath());
+		List<Entrada> Entradas;
+		try {
+			Entradas = tm.darEntradas();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Entradas).build();
+	}
+	
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los Bebidas de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/BebidaAndes/rest/Bebidas
+	 * @return Json con todos los Bebidas de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/Bebidas")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getBebidas() {
+		TM tm = new TM(getPath());
+		List<Bebida> Bebidas;
+		try {
+			Bebidas = tm.darBebidas();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Bebidas).build();
+	}
    
-   
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los Acompañamientos de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/AcompañamientoAndes/rest/Acompañamientos
+	 * @return Json con todos los Acompañamientos de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/Acompañamiento")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAcompañamientos() {
+		TM tm = new TM(getPath());
+		List<Acompañamiento> Acompañamientos;
+		try {
+			Acompañamientos = tm.darAcompañamientos();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Acompañamientos).build();
+	}
 
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los Menus de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/MenuAndes/rest/Menus
+	 * @return Json con todos los Menus de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/Menu")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getMenus() {
+		TM tm = new TM(getPath());
+		List<Menu> Menus;
+		try {
+			Menus = tm.darMenus();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Menus).build();
+	}
 
 }

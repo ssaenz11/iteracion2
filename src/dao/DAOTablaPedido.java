@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import vos.Cliente;
+import vos.Menu;
 import vos.Pedido;
+import vos.Postre;
 
 public class DAOTablaPedido {
 
@@ -140,6 +142,164 @@ public class DAOTablaPedido {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+		
+		String sql1 = "INSERT INTO SERVCIO_TABLA VALUES (";
+	    sql1 += pedido.getId_cliente() + ",";
+		sql1 += pedido.getId() + ")";
+		
+		PreparedStatement prepStmt1 = conn.prepareStatement(sql1);
+		recursos.add(prepStmt1);
+		prepStmt1.executeQuery();
+		
+		
+		
+		// voy  a verificar primero si el pedido es un menu
+		
+		Menu Menu = null;
+
+		String sql2 = "SELECT * FROM Menu_TABLA WHERE ID =" + pedido.getId_prod();
+
+		PreparedStatement prepStmt2 = conn.prepareStatement(sql2);
+		recursos.add(prepStmt2);
+		ResultSet rs = prepStmt2.executeQuery();
+if(rs == null) {
+	// no es un menú
+	
+	
+	String sql3 = "UPDATE Postre_TABLA SET ";
+	sql3 += "CANTIDAD =" + "CANTIDAD-1" + " ";
+	;
+	
+	sql3 += " WHERE NOMBRE = '" + pedido.getId_prod()+"'";
+
+
+	PreparedStatement prepStmt3 = conn.prepareStatement(sql3);
+	recursos.add(prepStmt3);
+	prepStmt3.executeQuery();
+	
+	
+	//actualizacion 
+	
+	String sql4 = "UPDATE Bebida_TABLA SET ";
+	sql4 += "CANTIDAD =" + "CANTIDAD-1" + " ";
+	;
+	
+	sql4 += " WHERE NOMBRE = '" + pedido.getId_prod()+"'";
+
+
+	PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
+	recursos.add(prepStmt4);
+	prepStmt4.executeQuery();
+	
+	//--------------------------
+	
+	String sql5 = "UPDATE Entrada_TABLA SET ";
+	sql5 += "CANTIDAD =" + "CANTIDAD-1" + " ";
+	;
+	
+	sql5 += " WHERE NOMBRE = '" + pedido.getId_prod()+"'";
+	
+	
+
+	PreparedStatement prepStmt5 = conn.prepareStatement(sql5);
+	recursos.add(prepStmt5);
+	prepStmt5.executeQuery();
+	
+	//------------------------------
+	
+	
+	String sql6 = "UPDATE PlatoFuerte_TABLA SET ";
+	sql5 += "CANTIDAD =" + "CANTIDAD-1" + " ";
+	;
+	
+	sql5 += " WHERE NOMBRE = '" + pedido.getId_prod()+"'";
+	
+	
+
+	PreparedStatement prepStmt6 = conn.prepareStatement(sql6);
+	recursos.add(prepStmt6);
+	prepStmt5.executeQuery();
+	
+	
+	
+	
+	
+}
+else if(rs.next()) {
+			double precio = rs.getDouble("PRECIO");
+			Long ID = rs.getLong("ID");
+			String entrada = rs.getString("ID_ENTRADA");
+			String postre = rs.getString("ID_POSTRE");
+			String bebida = rs.getString("ID_BEBIDA");
+			String platoFuerte = rs.getString("ID_PLATO_FUERTE");
+			
+			
+			
+			String sql3 = "UPDATE Postre_TABLA SET ";
+			sql3 += "CANTIDAD =" + "CANTIDAD-1" + " ";
+			;
+			
+			sql3 += " WHERE NOMBRE = '" + postre+"'";
+
+
+			PreparedStatement prepStmt3 = conn.prepareStatement(sql3);
+			recursos.add(prepStmt3);
+			prepStmt3.executeQuery();
+			
+			
+			//actualizacion 
+			
+			String sql4 = "UPDATE Bebida_TABLA SET ";
+			sql4 += "CANTIDAD =" + "CANTIDAD-1" + " ";
+			;
+			
+			sql4 += " WHERE NOMBRE = '" + bebida+"'";
+
+
+			PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
+			recursos.add(prepStmt4);
+			prepStmt4.executeQuery();
+			
+			//--------------------------
+			
+			String sql5 = "UPDATE Entrada_TABLA SET ";
+			sql5 += "CANTIDAD =" + "CANTIDAD-1" + " ";
+			;
+			
+			sql5 += " WHERE NOMBRE = '" + entrada+"'";
+			
+			
+
+			PreparedStatement prepStmt5 = conn.prepareStatement(sql5);
+			recursos.add(prepStmt5);
+			prepStmt5.executeQuery();
+			
+			//------------------------------
+			
+			
+			String sql6 = "UPDATE PlatoFuerte_TABLA SET ";
+			sql5 += "CANTIDAD =" + "CANTIDAD-1" + " ";
+			;
+			
+			sql5 += " WHERE NOMBRE = '" + entrada+"'";
+			
+			
+
+			PreparedStatement prepStmt6 = conn.prepareStatement(sql6);
+			recursos.add(prepStmt6);
+			prepStmt5.executeQuery();
+			
+			
+			
+			
+			// se actualizan los productos
+			
+			Menu =(new Menu(ID, bebida, entrada, platoFuerte, postre, precio));
+			
+			
+			
+		}
+		
 
 	}
 	

@@ -509,42 +509,42 @@ public class TM {
 		return ServicioProductos;
 	}
 	
-	/**
-	 * Metodo que modela la transaccion que retorna todos los PreferenciaClientes de la base de datos.
-	 * @return ListaPreferenciaClientes - objeto que modela  un arreglo de PreferenciaClientes. este arreglo contiene el resultado de la busqueda
-	 * @throws Exception -  cualquier error que se genere durante la transaccion
-	 */
-	public List<PreferenciaCliente> darPreferenciaClientes() throws Exception {
-		List<PreferenciaCliente> PreferenciaClientes;
-		DAOTablaPreferenciaCliente daoPreferenciaClientes = new DAOTablaPreferenciaCliente();
-		try 
-		{
-			//////transaccion
-			this.conn = darConexion();
-			daoPreferenciaClientes.setConn(conn);
-			PreferenciaClientes = daoPreferenciaClientes.darPreferenciaClientes();
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoPreferenciaClientes.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return PreferenciaClientes;
-	}
+//	/**
+//	 * Metodo que modela la transaccion que retorna todos los PreferenciaClientes de la base de datos.
+//	 * @return ListaPreferenciaClientes - objeto que modela  un arreglo de PreferenciaClientes. este arreglo contiene el resultado de la busqueda
+//	 * @throws Exception -  cualquier error que se genere durante la transaccion
+//	 */
+//	public List<PreferenciaCliente> darPreferenciaClientes() throws Exception {
+//		List<PreferenciaCliente> PreferenciaClientes;
+//		DAOTablaPreferenciaCliente daoPreferenciaClientes = new DAOTablaPreferenciaCliente();
+//		try 
+//		{
+//			//////transaccion
+//			this.conn = darConexion();
+//			daoPreferenciaClientes.setConn(conn);
+//			PreferenciaClientes = daoPreferenciaClientes.darPreferenciaClientes();
+//
+//		} catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} finally {
+//			try {
+//				daoPreferenciaClientes.cerrarRecursos();
+//				if(this.conn!=null)
+//					this.conn.close();
+//			} catch (SQLException exception) {
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//		return PreferenciaClientes;
+//	}
 	
 	/**
 	 * Metodo que modela la transaccion que retorna todos los Clientes de la base de datos.
@@ -1720,42 +1720,42 @@ public class TM {
 		}
 	}
 	
-	/**
-	 * Metodo que modela la transaccion que agrega un solo PreferenciaCliente a la base de datos.
-	 * <b> post: </b> se ha agregado el PreferenciaCliente que entra como parametro
-	 * @param PreferenciaCliente - el PreferenciaCliente a agregar. PreferenciaCliente != null
-	 * @throws Exception - cualquier error que se genere agregando el PreferenciaCliente
-	 */
-	public void addPreferenciaCliente(PreferenciaCliente PreferenciaCliente) throws Exception {
-		DAOTablaPreferenciaCliente daoPreferenciaClientes = new DAOTablaPreferenciaCliente();
-		try 
-		{
-			//////transaccion
-			this.conn = darConexion();
-			daoPreferenciaClientes.setConn(conn);
-			daoPreferenciaClientes.addPreferenciaCliente(PreferenciaCliente);
-			conn.commit();
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoPreferenciaClientes.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
+//	/**
+//	 * Metodo que modela la transaccion que agrega un solo PreferenciaCliente a la base de datos.
+//	 * <b> post: </b> se ha agregado el PreferenciaCliente que entra como parametro
+//	 * @param PreferenciaCliente - el PreferenciaCliente a agregar. PreferenciaCliente != null
+//	 * @throws Exception - cualquier error que se genere agregando el PreferenciaCliente
+//	 */
+//	public void addPreferenciaCliente(PreferenciaCliente PreferenciaCliente) throws Exception {
+//		DAOTablaPreferenciaCliente daoPreferenciaClientes = new DAOTablaPreferenciaCliente();
+//		try 
+//		{
+//			//////transaccion
+//			this.conn = darConexion();
+//			daoPreferenciaClientes.setConn(conn);
+//			daoPreferenciaClientes.addPreferenciaCliente(PreferenciaCliente);
+//			conn.commit();
+//
+//		} catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} finally {
+//			try {
+//				daoPreferenciaClientes.cerrarRecursos();
+//				if(this.conn!=null)
+//					this.conn.close();
+//			} catch (SQLException exception) {
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//	}
 	
 	/**
 	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
@@ -3011,41 +3011,41 @@ public class TM {
 		}
 	}
 	
-	/**
-	 * Metodo que modela la transaccion que elimina el PreferenciaCliente que entra como parametro a la base de datos.
-	 * <b> post: </b> se ha eliminado el PreferenciaCliente que entra como parametro
-	 * @param PreferenciaCliente - PreferenciaCliente a eliminar. PreferenciaCliente != null
-	 * @throws Exception - cualquier error que se genera actualizando los PreferenciaClientes
-	 */
-	public void deletePreferenciaCliente(PreferenciaCliente PreferenciaCliente) throws Exception {
-		DAOTablaPreferenciaCliente daoPreferenciaClientes = new DAOTablaPreferenciaCliente();
-		try 
-		{
-			//////transaccion
-			this.conn = darConexion();
-			daoPreferenciaClientes.setConn(conn);
-			daoPreferenciaClientes.deletePreferenciaCliente(PreferenciaCliente);
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoPreferenciaClientes.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
+//	/**
+//	 * Metodo que modela la transaccion que elimina el PreferenciaCliente que entra como parametro a la base de datos.
+//	 * <b> post: </b> se ha eliminado el PreferenciaCliente que entra como parametro
+//	 * @param PreferenciaCliente - PreferenciaCliente a eliminar. PreferenciaCliente != null
+//	 * @throws Exception - cualquier error que se genera actualizando los PreferenciaClientes
+//	 */
+//	public void deletePreferenciaCliente(PreferenciaCliente PreferenciaCliente) throws Exception {
+//		DAOTablaPreferenciaCliente daoPreferenciaClientes = new DAOTablaPreferenciaCliente();
+//		try 
+//		{
+//			//////transaccion
+//			this.conn = darConexion();
+//			daoPreferenciaClientes.setConn(conn);
+//			daoPreferenciaClientes.deletePreferenciaCliente(PreferenciaCliente);
+//
+//		} catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} finally {
+//			try {
+//				daoPreferenciaClientes.cerrarRecursos();
+//				if(this.conn!=null)
+//					this.conn.close();
+//			} catch (SQLException exception) {
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//	}
 	
 	/**
 	 * Metodo que modela la transaccion que elimina el ServicioProducto que entra como parametro a la base de datos.

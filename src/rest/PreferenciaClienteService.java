@@ -43,61 +43,61 @@ public class PreferenciaClienteService {
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
 	
-
-	/**
-	 * Metodo que expone servicio REST usando GET que da todos los PreferenciaClientes de la base de datos.
-	 * <b>URL: </b> http://"ip o nombre de host":8080/PreferenciaClienteAndes/rest/PreferenciaClientes
-	 * @return Json con todos los PreferenciaClientes de la base de datos o json con 
-     * el error que se produjo
-	 */
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getPreferenciaClientes() {
-		TM tm = new TM(getPath());
-		List<PreferenciaCliente> PreferenciaClientes;
-		try {
-			PreferenciaClientes = tm.darPreferenciaClientes();
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(PreferenciaClientes).build();
-	}
+//
+//	/**
+//	 * Metodo que expone servicio REST usando GET que da todos los PreferenciaClientes de la base de datos.
+//	 * <b>URL: </b> http://"ip o nombre de host":8080/PreferenciaClienteAndes/rest/PreferenciaClientes
+//	 * @return Json con todos los PreferenciaClientes de la base de datos o json con 
+//     * el error que se produjo
+//	 */
+//	@GET
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	public Response getPreferenciaClientes() {
+//		TM tm = new TM(getPath());
+//		List<PreferenciaCliente> PreferenciaClientes;
+//		try {
+//			PreferenciaClientes = tm.darPreferenciaClientes();
+//		} catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//		return Response.status(200).entity(PreferenciaClientes).build();
+//	}
 
 	
 
 
     /**
-     * Metodo que expone servicio REST usando POST que agrega el PreferenciaCliente que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/PreferenciaClienteAndes/rest/PreferenciaClientes/PreferenciaCliente
-     * @param PreferenciaCliente - PreferenciaCliente a agregar
-     * @return Json con el PreferenciaCliente que agrego o Json con el error que se produjo
-     */
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addPreferenciaCliente(PreferenciaCliente PreferenciaCliente) {
-		TM tm = new TM(getPath());
-		try {
-			tm.addPreferenciaCliente(PreferenciaCliente);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(PreferenciaCliente).build();
-	}
-	
-    
-	
-	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response deletePreferenciaCliente(PreferenciaCliente PreferenciaCliente) {
-		TM tm = new TM(getPath());
-		try {
-			tm.deletePreferenciaCliente(PreferenciaCliente);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(PreferenciaCliente).build();
-	}
+//     * Metodo que expone servicio REST usando POST que agrega el PreferenciaCliente que recibe en Json
+//     * <b>URL: </b> http://"ip o nombre de host":8080/PreferenciaClienteAndes/rest/PreferenciaClientes/PreferenciaCliente
+//     * @param PreferenciaCliente - PreferenciaCliente a agregar
+//     * @return Json con el PreferenciaCliente que agrego o Json con el error que se produjo
+//     */
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response addPreferenciaCliente(PreferenciaCliente PreferenciaCliente) {
+//		TM tm = new TM(getPath());
+//		try {
+//			tm.addPreferenciaCliente(PreferenciaCliente);
+//		} catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//		return Response.status(200).entity(PreferenciaCliente).build();
+//	}
+//	
+//    
+//	
+//	@DELETE
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response deletePreferenciaCliente(PreferenciaCliente PreferenciaCliente) {
+//		TM tm = new TM(getPath());
+//		try {
+//			tm.deletePreferenciaCliente(PreferenciaCliente);
+//		} catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//		return Response.status(200).entity(PreferenciaCliente).build();
+//	}
 
 }
