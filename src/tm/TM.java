@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import dao.DAOTablaAcompañamiento;
 import dao.DAOTablaAdministrador;
+import dao.DAOTablaAdministradorRestaurante;
 import dao.DAOTablaBebida;
 import dao.DAOTablaCliente;
 import dao.DAOTablaRestaurante;
@@ -32,6 +33,7 @@ import dao.DAOTablaRestaurante;
 import dao.DAOTablaServicioProducto;
 import vos.Acompañamiento;
 import vos.Administrador;
+import vos.AdministradorRestaurante;
 import vos.Bebida;
 import vos.Cliente;
 import vos.Entrada;
@@ -208,6 +210,43 @@ public class TM {
 			}
 		}
 		return Administradors;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los AdministradorRestaurantes de la base de datos.
+	 * @return ListaAdministradorRestaurantes - objeto que modela  un arreglo de AdministradorRestaurantes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<AdministradorRestaurante> darAdministradorRestaurantes() throws Exception {
+		List<AdministradorRestaurante> AdministradorRestaurantes;
+		DAOTablaAdministradorRestaurante daoAdministradorRestaurantes = new DAOTablaAdministradorRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoAdministradorRestaurantes.setConn(conn);
+			AdministradorRestaurantes = daoAdministradorRestaurantes.darAdministradorRestaurantes();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoAdministradorRestaurantes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return AdministradorRestaurantes;
 	}
 	
 	/**
@@ -806,6 +845,46 @@ public class TM {
 	}
 	
 	
+
+	/**
+	 * Metodo que modela la transaccion que busca el AdministradorRestaurante en la base de datos con el id que entra como parametro.
+	 * @param name - Id del AdministradorRestaurante a buscar. name != null
+	 * @return AdministradorRestaurante - Resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public AdministradorRestaurante buscarAdministradorRestaurantePorId(Long id) throws Exception {
+		AdministradorRestaurante AdministradorRestaurante;
+		DAOTablaAdministradorRestaurante daoAdministradorRestaurantes = new DAOTablaAdministradorRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoAdministradorRestaurantes.setConn(conn);
+			AdministradorRestaurante = daoAdministradorRestaurantes.buscarAdministradorRestaurantePorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoAdministradorRestaurantes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return AdministradorRestaurante;
+	}
+	
+	
 	/**
 	 * Metodo que modela la transaccion que busca el/los PlatoFuerte en la base de datos con el nombre entra como parametro.
 	 * @param name - Nombre del Cliente a buscar. name != null
@@ -912,6 +991,43 @@ public class TM {
 		} finally {
 			try {
 				daoAdministradors.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un solo AdministradorRestaurante a la base de datos.
+	 * <b> post: </b> se ha agregado el AdministradorRestaurante que entra como parametro
+	 * @param AdministradorRestaurante - el AdministradorRestaurante a agregar. AdministradorRestaurante != null
+	 * @throws Exception - cualquier error que se genere agregando el AdministradorRestaurante
+	 */
+	public void addAdministradorRestaurante(AdministradorRestaurante AdministradorRestaurante) throws Exception {
+		DAOTablaAdministradorRestaurante daoAdministradorRestaurantes = new DAOTablaAdministradorRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoAdministradorRestaurantes.setConn(conn);
+			daoAdministradorRestaurantes.addAdministradorRestaurante(AdministradorRestaurante);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoAdministradorRestaurantes.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -2633,6 +2749,42 @@ public class TM {
 		} finally {
 			try {
 				daoAdministradors.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el AdministradorRestaurante que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el AdministradorRestaurante que entra como parametro
+	 * @param AdministradorRestaurante - AdministradorRestaurante a eliminar. AdministradorRestaurante != null
+	 * @throws Exception - cualquier error que se genera actualizando los AdministradorRestaurantes
+	 */
+	public void deleteAdministradorRestaurante(AdministradorRestaurante AdministradorRestaurante) throws Exception {
+		DAOTablaAdministradorRestaurante daoAdministradorRestaurantes = new DAOTablaAdministradorRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoAdministradorRestaurantes.setConn(conn);
+			daoAdministradorRestaurantes.deleteAdministradorRestaurante(AdministradorRestaurante);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoAdministradorRestaurantes.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {

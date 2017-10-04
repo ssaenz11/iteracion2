@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response;
 
 import tm.TM;
 import vos.Administrador;
+import vos.AdministradorRestaurante;
+import vos.Cliente;
 
 @Path("Administrador")
 public class AdministradorService 
@@ -189,13 +191,126 @@ public class AdministradorService
 	}
 	
 	
-//	@Path("{usarioId: \\d+}/pedidos")
-//  public Class<UsuarioPedidoClienteResource> getUsuarioPedidos(@PathParam("usuarioId") Long idProv) {
-//      UsuarioEntity ent = usuarioLogic.getUsuario(idProv);
-//      if (ent == null) {
-//          throw new WebApplicationException("El proveedor con el id " + idProv + " no existe ", 404);
-//      }
-//      return UsuarioPedidoClienteResource.class;
-//  }
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los Clientes de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+	 * @return Json con todos los Clientes de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/Clientes")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getClientes() {
+		TM tm = new TM(getPath());
+		List<Cliente> Clientes;
+		try {
+			Clientes = tm.darClientes();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Clientes).build();
+	}
+	
+	 /**
+     * Metodo que expone servicio REST usando POST que agrega los Clientes que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes/varios
+     * @param Clientes - Clientes a agregar. 
+     * @return Json con el Cliente que agrego o Json con el error que se produjo
+     */
+	 /**
+     * Metodo que expone servicio REST usando POST que agrega el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes/Cliente
+     * @param Cliente - Cliente a agregar
+     * @return Json con el Cliente que agrego o Json con el error que se produjo
+     */
+	@POST
+	@Path("/Clientes")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addCliente(Cliente Cliente) {
+		TM tm = new TM(getPath());
+		try {
+			tm.addCliente(Cliente);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Cliente).build();
+	}
+	
+	
+	  /**
+     * Metodo que expone servicio REST usando DELETE que elimina el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+     * @param Cliente - Cliente a aliminar. 
+     * @return Json con el Cliente que elimino o Json con el error que se produjo
+     */
+	@DELETE
+	@Path("/Clientes")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteCliente(Cliente Cliente) {
+		TM tm = new TM(getPath());
+		try {
+			tm.deleteCliente(Cliente);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Cliente).build();
+	}
+	
+	
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los AdministradorRestaurantes de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/AdministradorRestauranteAndes/rest/AdministradorRestaurantes
+	 * @return Json con todos los AdministradorRestaurantes de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/AdmiRestaurante")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAdministradorRestaurantes() {
+		TM tm = new TM(getPath());
+		List<AdministradorRestaurante> AdministradorRestaurantes;
+		try {
+			AdministradorRestaurantes = tm.darAdministradorRestaurantes();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(AdministradorRestaurantes).build();
+	}
+	
+	/**
+     * Metodo que expone servicio REST usando POST que agrega el AdministradorRestaurante que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/AdministradorRestauranteAndes/rest/AdministradorRestaurantes/AdministradorRestaurante
+     * @param AdministradorRestaurante - AdministradorRestaurante a agregar
+     * @return Json con el AdministradorRestaurante que agrego o Json con el error que se produjo
+     */
+	@POST
+	@Path("/AdmiRestaurante")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addAdministradorRestaurante(AdministradorRestaurante AdministradorRestaurante) {
+		TM tm = new TM(getPath());
+		try {
+			tm.addAdministradorRestaurante(AdministradorRestaurante);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(AdministradorRestaurante).build();
+	}
+	
+	@DELETE
+	@Path("/AdmiRestaurante")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteAdministradorRestaurante(AdministradorRestaurante AdministradorRestaurante) {
+		TM tm = new TM(getPath());
+		try {
+			tm.deleteAdministradorRestaurante(AdministradorRestaurante);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(AdministradorRestaurante).build();
+	}
 
 }

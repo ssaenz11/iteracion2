@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -65,7 +66,7 @@ public class DAOTablaPedido {
 	public ArrayList<Pedido> darPedidos() throws SQLException, Exception {
 		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 
-		String sql = "SELECT * FROM PEDIDO_TABLA1";
+		String sql = "SELECT * FROM PEDIDO";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -74,12 +75,12 @@ public class DAOTablaPedido {
 		while (rs.next()) {
 			
 			Long id = rs.getLong("ID");
-			Date fecha = rs.getDate("FECHA");
-			int hora = rs.getInt("HORA");
-			Long id_cliente = rs.getLong("ID_CLIENTE");
-			String nombre_Rest = rs.getString("NOMBRE_REST");
-			Long id_prod = rs.getLong("ID_PROD");
-			pedidos.add(new Pedido(id, fecha, hora, id_cliente, nombre_Rest, id_prod));
+			String fecha = rs.getString("FECHA");
+			
+			Long id_cliente = rs.getLong("fk_cliente");
+			String nombre_Rest = rs.getString("fk_nomRest");
+			Long id_prod = rs.getLong("fk_producto");
+			pedidos.add(new Pedido(id, fecha,  id_cliente, nombre_Rest, id_prod));
 		}
 		return pedidos;
 	}
@@ -97,7 +98,7 @@ public class DAOTablaPedido {
 	{
 		Pedido pedido = null;
 
-		String sql = "SELECT * FROM PEDIDO_TABLA1 WHERE ID =" + id;
+		String sql = "SELECT * FROM PEDIDO WHERE ID =" + id;
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -105,12 +106,12 @@ public class DAOTablaPedido {
 
 		if(rs.next()) {
 
-			Date fecha = rs.getDate("FECHA");
-			int hora = rs.getInt("HORA");
-			Long id_cliente = rs.getLong("ID_CLIENTE");
-			String nombre_Rest = rs.getString("NOMBRE_REST");
-			Long id_prod = rs.getLong("ID_PROD");
-			pedido =new Pedido(id, fecha, hora, id_cliente, nombre_Rest, id_prod);
+			String fecha = rs.getString("FECHA");
+			
+			Long id_cliente = rs.getLong("fk_cliente");
+			String nombre_Rest = rs.getString("fk_nomRest");
+			Long id_prod = rs.getLong("fk_producto");
+			pedido =new Pedido(id, fecha,  id_cliente, nombre_Rest, id_prod);
 		}
 
 		return pedido;
@@ -126,13 +127,15 @@ public class DAOTablaPedido {
 	 */
 	public void addPedido(Pedido pedido) throws SQLException, Exception {
 
-		String sql = "INSERT INTO PEDIDO_TABLA1 VALUES (";
-	    sql += pedido.getId() + ",";
-		sql += pedido.getFecha() + ",";
-		sql += pedido.getHora() + ",";
+		String sql = "INSERT INTO PEDIDO VALUES (";
+	    sql += pedido.getId() + ", '";
+//	    String modi = new SimpleDateFormat("yyyy-MM-dd").format(pedido.getFecha());
+		sql += pedido.getFecha() + "',";
+		
+		
+		sql += pedido.getId_prod() + ",";
 		sql += pedido.getId_cliente() + ",'";
-		sql += pedido.getNombre_Rest() + "',";
-		sql += pedido.getId_prod() + ")";
+		sql += pedido.getNombre_Rest() + "')";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -150,13 +153,13 @@ public class DAOTablaPedido {
 	 */
 	public void updatePedido(Pedido pedido) throws SQLException, Exception {
 
-		String sql = "UPDATE PEDIDO_TABLA1 SET ";
+		String sql = "UPDATE PEDIDO SET ";
 
-		sql += "FECHA =" + pedido.getFecha() + ",";
-		sql += "HORA =" + pedido.getHora()+ ",";
-		sql += "ID_CLIENTE =" + pedido.getId_cliente() + ",";
-		sql += "NOMBRE_REST ='" + pedido.getHora()+ "',";
-		sql += "ID_PROD ='" + pedido.getHora()+ "',";
+		sql += "FECHA ='" + pedido.getFecha() + "',";
+		
+		sql += "fk_cliente =" + pedido.getId_cliente() + ",";
+		sql += "fk_nomRest ='" + pedido.getNombre_Rest()+ "',";
+		sql += "fk_producto ='" + pedido.getId_prod()+ "',";
 	
 		sql += " WHERE ID = " + pedido.getId();
 
@@ -176,7 +179,7 @@ public class DAOTablaPedido {
 	 */
 	public void deletePedido(Pedido pedido) throws SQLException, Exception {
 
-		String sql = "DELETE FROM PEDIDO_TABLA1";
+		String sql = "DELETE FROM PEDIDO";
 		sql += " WHERE ID = " + pedido.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

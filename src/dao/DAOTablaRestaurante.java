@@ -63,7 +63,7 @@ public class DAOTablaRestaurante {
 	public ArrayList<Restaurante> darRestaurantes() throws SQLException, Exception {
 		ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
 
-		String sql = "SELECT * FROM RESTAURANTE_TABLA1";
+		String sql = "SELECT * FROM RESTAURANTE";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -72,9 +72,9 @@ public class DAOTablaRestaurante {
 		while (rs.next()) {
 			
 			String name = rs.getString("NOMBRE");
-			String representante = rs.getString("CEDULA");
-			String tipo = rs.getString("CORREO");
-			String zona_nombre = rs.getString("NOMBRE_ZONA");
+			String representante = rs.getString("REPRESENTANTE");
+			String tipo = rs.getString("TIPOCOMIDA");
+			String zona_nombre = rs.getString("FK_ZONA");
 			restaurantes.add(new Restaurante(name, representante, tipo, zona_nombre));
 		}
 		return restaurantes;
@@ -91,7 +91,7 @@ public class DAOTablaRestaurante {
 	public ArrayList<Restaurante> buscarRestaurantePorName(String name) throws SQLException, Exception {
 		ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
 
-		String sql = "SELECT * FROM RESTAURANTE_TABLA1 WHERE NAME ='" + name + "'";
+		String sql = "SELECT * FROM RESTAURANTE WHERE NAME ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -99,9 +99,9 @@ public class DAOTablaRestaurante {
 
 		while (rs.next()) {
 			String name2 = rs.getString("NOMBRE");
-			String representante = rs.getString("CEDULA");
-			String tipo = rs.getString("CORREO");
-			String zona_nombre = rs.getString("NOMBRE_ZONA");
+			String representante = rs.getString("REPRESENTANTE");
+			String tipo = rs.getString("TIPOCOMIDA");
+			String zona_nombre = rs.getString("FK_ZONA");
 			restaurantes.add(new Restaurante(name2, representante, tipo, zona_nombre));
 		}
 
@@ -119,11 +119,11 @@ public class DAOTablaRestaurante {
 	 */
 	public void addRestaurante(Restaurante restaurante) throws SQLException, Exception {
 
-		String sql = "INSERT INTO RESTAURANTE_TABLA1 VALUES ('";
+		String sql = "INSERT INTO RESTAURANTE VALUES ('";
 	    sql += restaurante.getNombre() + "','";
 		sql += restaurante.getRepresentante() + "','";
-		sql += restaurante.getTipo() + "','";
-		sql += restaurante.getNombre_zona() + "')";
+		sql += restaurante.getTipo() + "',";
+		sql += restaurante.getNombre_zona() + ")";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -141,11 +141,11 @@ public class DAOTablaRestaurante {
 	 */
 	public void updateRestaurante(Restaurante restaurante) throws SQLException, Exception {
 
-		String sql = "UPDATE RESTAURANTE_TABLA1 SET ";
+		String sql = "UPDATE RESTAURANTE SET ";
 		
 		sql += "REPRESENTANTE ='" + restaurante.getRepresentante()+ "'";
-		sql += "TIPO ='" + restaurante.getTipo()+ "'";
-		sql += "NOMBRE_ZONA ='" + restaurante.getNombre_zona()+ "'";
+		sql += "TIPOCOMIDA ='" + restaurante.getTipo()+ "'";
+		sql += "FK_ZONA =" + restaurante.getNombre_zona()+ "";
 		
 		sql += " WHERE NOMBRE = " + restaurante.getNombre();
 
@@ -165,8 +165,8 @@ public class DAOTablaRestaurante {
 	 */
 	public void deleteRestaurante(Restaurante restaurante) throws SQLException, Exception {
 
-		String sql = "DELETE FROM RESTAURANTE_TABLA1";
-		sql += " WHERE NOMBRE = " + restaurante.getNombre();
+		String sql = "DELETE FROM RESTAURANTE";
+		sql += " WHERE NOMBRE = '" + restaurante.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

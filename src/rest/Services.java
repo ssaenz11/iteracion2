@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 
 import tm.TM;
 import vos.Cliente;
+import vos.Pedido;
 
 
 
@@ -88,28 +89,28 @@ public class Services {
 		}
 	}
 
-    /**
-     * Metodo que expone servicio REST usando GET que busca el Cliente con el nombre que entra como parametro
-     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes/nombre/nombre?nombre=<<nombre>>" para la busqueda"
-     * @param name - Nombre del Cliente a buscar que entra en la URL como parametro 
-     * @return Json con el/los Clientes encontrados con el nombre que entra como parametro o json con 
-     * el error que se produjo
-     */
-	@GET
-	@Path( "{nombre}" )
-	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getClienteName( @QueryParam("nombre") String name) {
-		TM tm = new TM(getPath());
-		List<Cliente> Clientes;
-		try {
-			if (name == null || name.length() == 0)
-				throw new Exception("Nombre del Cliente no valido");
-			Clientes = tm.buscarClientesPorName(name);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(Clientes).build();
-	}
+//    /**
+//     * Metodo que expone servicio REST usando GET que busca el Cliente con el nombre que entra como parametro
+//     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes/nombre/nombre?nombre=<<nombre>>" para la busqueda"
+//     * @param name - Nombre del Cliente a buscar que entra en la URL como parametro 
+//     * @return Json con el/los Clientes encontrados con el nombre que entra como parametro o json con 
+//     * el error que se produjo
+//     */
+//	@GET
+//	@Path( "{nombre}" )
+//	@Produces( { MediaType.APPLICATION_JSON } )
+//	public Response getClienteName( @QueryParam("nombre") String name) {
+//		TM tm = new TM(getPath());
+//		List<Cliente> Clientes;
+//		try {
+//			if (name == null || name.length() == 0)
+//				throw new Exception("Nombre del Cliente no valido");
+//			Clientes = tm.buscarClientesPorName(name);
+//		} catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//		return Response.status(200).entity(Clientes).build();
+//	}
 
 
     /**
@@ -188,6 +189,53 @@ public class Services {
 		}
 		return Response.status(200).entity(Cliente).build();
 	}
+	
+	
+
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los Clientes de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+	 * @return Json con todos los Clientes de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/Pedidos")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getPedidos() {
+		TM tm = new TM(getPath());
+		List<Pedido> pedidos;
+		try {
+			pedidos = tm.darPedidos();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(pedidos).build();
+	}
+
+	 
+
+    /**
+     * Metodo que expone servicio REST usando POST que agrega el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes/Cliente
+     * @param pedido - Cliente a agregar
+     * @return Json con el Cliente que agrego o Json con el error que se produjo
+     */
+	@POST
+	@Path("/Pedidos")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addPedido(Pedido pedido) {
+		TM tm = new TM(getPath());
+		try {
+			tm.addPedido(pedido);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(pedido).build();
+	}
+	
+   
+   
 
 
 }

@@ -13,13 +13,9 @@ public class Pedido {
 	 * fecha del pedido.
 	 */
 	@JsonProperty(value="fecha")
-	private Date fecha;
+	private String fecha;
 	
-	/**
-	 * hora del pedido.
-	 */
-	@JsonProperty(value="hora")
-	private int hora;
+	
 	
 	/**
 	 * id del cliente que hizo el pedido.
@@ -48,14 +44,14 @@ public class Pedido {
 	 * @param id_prod
 	 */
 	public Pedido(@JsonProperty(value="id")Long id,
-			@JsonProperty(value="fecha")Date fecha, 
-			@JsonProperty(value="hora")int hora,
+			@JsonProperty(value="fecha")String fecha, 
+			
 			@JsonProperty(value="cliente")Long id_cliente, 
 			@JsonProperty(value="nombre_Rest")String nombre_Rest,
 			@JsonProperty(value="id_prod")Long id_prod) {
 		this.id = id;
 		this.fecha = fecha;
-		this.hora = hora;
+		
 		this.id_cliente = id_cliente;
 		this.nombre_Rest = nombre_Rest;
 		this.id_prod = id_prod;
@@ -78,30 +74,18 @@ public class Pedido {
 	/**
 	 * @return the fecha
 	 */
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
 	/**
 	 * @param fecha the fecha to set
 	 */
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
-	/**
-	 * @return the hora
-	 */
-	public int getHora() {
-		return hora;
-	}
-
-	/**
-	 * @param hora the hora to set
-	 */
-	public void setHora(int hora) {
-		this.hora = hora;
-	}
+	
 
 	/**
 	 * @return the id_cliente

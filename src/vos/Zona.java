@@ -20,13 +20,13 @@ public class Zona {
 	 * boolean que indica si la zona está destapada.
 	 */
 	@JsonProperty(value="destapado")
-	private boolean destapado;
+	private String destapado;
 	
 	/**
 	 * boolean que indica si la zona es apropiada para personas con discapacidad.
 	 */
 	@JsonProperty(value="apropiadoDisc")
-	private boolean apropiadoDisc;
+	private String apropiadoDisc;
 	
 	/**
 	 * descripcion de las condiciones tecnicas que tiene la zona.
@@ -44,8 +44,8 @@ public class Zona {
 	 */
 	public Zona(@JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="capacidad")int capacidad,
-			@JsonProperty(value="destapado")boolean destapado,
-			@JsonProperty(value="apropiadoDisc")boolean apropiadoDisc,
+			@JsonProperty(value="destapado")String destapado,
+			@JsonProperty(value="apropiadoDisc")String apropiadoDisc,
 			@JsonProperty(value="condicionesTecnicas")String condicionesTecnicas)
 	{
 		this.nombre = nombre;
@@ -86,28 +86,28 @@ public class Zona {
 	/**
 	 * @return the destapado
 	 */
-	public boolean isDestapado() {
+	public String isDestapado() {
 		return destapado;
 	}
 
 	/**
 	 * @param destapado the destapado to set
 	 */
-	public void setDestapado(boolean destapado) {
+	public void setDestapado(String destapado) {
 		this.destapado = destapado;
 	}
 
 	/**
 	 * @return the apropiadoDisc
 	 */
-	public boolean isApropiadoDisc() {
+	public String isApropiadoDisc() {
 		return apropiadoDisc;
 	}
 
 	/**
 	 * @param apropiadoDisc the apropiadoDisc to set
 	 */
-	public void setApropiadoDisc(boolean apropiadoDisc) {
+	public void setApropiadoDisc(String apropiadoDisc) {
 		this.apropiadoDisc = apropiadoDisc;
 	}
 

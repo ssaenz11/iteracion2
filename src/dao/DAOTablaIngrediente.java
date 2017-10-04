@@ -62,7 +62,7 @@ public class DAOTablaIngrediente {
 	public ArrayList<Ingrediente> darIngredientes() throws SQLException, Exception {
 		ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 
-		String sql = "SELECT * FROM INGREDIENTE_TABLA1";
+		String sql = "SELECT * FROM INGREDIENTE";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -88,7 +88,7 @@ public class DAOTablaIngrediente {
 	public ArrayList<Ingrediente> buscarIngredientePorName(String name) throws SQLException, Exception {
 		ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 
-		String sql = "SELECT * FROM INGREDIENTE_TABLA1 WHERE NAME ='" + name + "'";
+		String sql = "SELECT * FROM INGREDIENTE WHERE NAME ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -115,7 +115,7 @@ public class DAOTablaIngrediente {
 	 */
 	public void addIngrediente(Ingrediente ingrediente) throws SQLException, Exception {
 
-		String sql = "INSERT INTO INGREDIENTE_TABLA1 VALUES ('";
+		String sql = "INSERT INTO INGREDIENTE VALUES ('";
 		sql += ingrediente.getNombre() + "','";
 		sql += ingrediente.getDescripcion() + "','";
 		sql += ingrediente.getTraduccion() + "')";
@@ -136,9 +136,9 @@ public class DAOTablaIngrediente {
 	 */
 	public void updateIngrediente(Ingrediente ingrediente) throws SQLException, Exception {
 
-		String sql = "UPDATE CLIENTE_TABLA1 SET ";
-		sql += "CORREO='" + ingrediente.getDescripcion()+ "',";
-		sql += "CEDULA='" + ingrediente.getTraduccion()+ "',";
+		String sql = "UPDATE INGREDIENTE SET ";
+		sql += "DESCRIPCION	='" + ingrediente.getDescripcion()+ "',";
+		sql += "TRADUCCION='" + ingrediente.getTraduccion()+ "',";
 		sql += " WHERE NOMBRE = " + ingrediente.getNombre();
 
 
@@ -157,8 +157,8 @@ public class DAOTablaIngrediente {
 	 */
 	public void deleteIngrediente(Ingrediente ingrediente) throws SQLException, Exception {
 
-		String sql = "DELETE FROM INGREDIENTE_TABLA1";
-		sql += " WHERE NOMBRE = " + ingrediente.getNombre();
+		String sql = "DELETE FROM INGREDIENTE";
+		sql += " WHERE NOMBRE = '" + ingrediente.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

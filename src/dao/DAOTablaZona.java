@@ -64,7 +64,7 @@ public class DAOTablaZona {
 	public ArrayList<Zona> darZonas() throws SQLException, Exception {
 		ArrayList<Zona> zonas = new ArrayList<Zona>();
 
-		String sql = "SELECT * FROM ZONA_TABLA1";
+		String sql = "SELECT * FROM ZONA";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -74,9 +74,9 @@ public class DAOTablaZona {
 			
 			String name = rs.getString("NOMBRE");
 			int capacidad = rs.getInt("CAPACIDAD");
-			boolean destapado = rs.getBoolean("DESTAPADO");
-			boolean apropiadoDisc = rs.getBoolean("DESTAPADO");
-			String condicionesTecnicas = rs.getString("CONDICIONESTECNICAS");
+			String destapado = rs.getString("DESTAPADO");
+			String apropiadoDisc = rs.getString("apropiadoDisc");
+			String condicionesTecnicas = rs.getString("condicionesTec");
 			zonas.add(new Zona(name, capacidad, destapado, apropiadoDisc, condicionesTecnicas));
 		}
 		return zonas;
@@ -93,7 +93,7 @@ public class DAOTablaZona {
 	public ArrayList<Zona> buscarZonaPorName(String name) throws SQLException, Exception {
 		ArrayList<Zona> zonas = new ArrayList<Zona>();
 
-		String sql = "SELECT * FROM Zona_TABLA1 WHERE NAME ='" + name + "'";
+		String sql = "SELECT * FROM ZONA WHERE NAME ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -102,9 +102,9 @@ public class DAOTablaZona {
 		while (rs.next()) {
 			String name2 = rs.getString("NOMBRE");
 			int capacidad = rs.getInt("CAPACIDAD");
-			boolean destapado = rs.getBoolean("DESTAPADO");
-			boolean apropiadoDisc = rs.getBoolean("DESTAPADO");
-			String condicionesTecnicas = rs.getString("CONDICIONESTECNICAS");
+			String destapado = rs.getString("DESTAPADO");
+			String apropiadoDisc = rs.getString("apropiadoDisc");
+			String condicionesTecnicas = rs.getString("condicionesTec");
 			
 			zonas.add(new Zona(name2, capacidad, destapado, apropiadoDisc, condicionesTecnicas));
 		}
@@ -123,12 +123,12 @@ public class DAOTablaZona {
 	 */
 	public void addZona(Zona zona) throws SQLException, Exception {
 
-		String sql = "INSERT INTO ZONA_TABLA1 VALUES ('";
+		String sql = "INSERT INTO ZONA VALUES ('";
 	    sql += zona.getNombre() + "',";
-		sql += zona.getCapacidad() + ",";
+		sql += zona.getCapacidad() + ",'";
 
-		sql += zona.isDestapado() + ",";
-		sql += zona.isApropiadoDisc() + ",'";
+		sql += zona.isDestapado() + "','";
+		sql += zona.isApropiadoDisc() + "','";
 		sql += zona.getCondicionesTecnicas() + "')";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -147,12 +147,12 @@ public class DAOTablaZona {
 	 */
 	public void updateZona(Zona zona) throws SQLException, Exception {
 
-		String sql = "UPDATE ZONA_TABLA1 SET ";
+		String sql = "UPDATE ZONA SET ";
 		sql += "CAPACIDAD =" + zona.getCapacidad() + ",";
-		sql += "DESTAPADO =" + zona.isDestapado()+ ",";
-		sql += "APROPIADODISC ='" + zona.isApropiadoDisc()+ ",";
-		sql += "CONDICIONESTECNICAS ='" + zona.getCondicionesTecnicas()+ ",";
-		sql += " WHERE NOMBRE = " + zona.getNombre();
+		sql += "DESTAPADO ='" + zona.isDestapado()+ "',";
+		sql += "APROPIADODISC ='" + zona.isApropiadoDisc()+ "',";
+		sql += "condicionesTec ='" + zona.getCondicionesTecnicas()+ "',";
+		sql += " WHERE NOMBRE = '" + zona.getNombre()+ "'";
 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -170,8 +170,8 @@ public class DAOTablaZona {
 	 */
 	public void deleteZona(Zona zona) throws SQLException, Exception {
 
-		String sql = "DELETE FROM ZONA_TABLA1";
-		sql += " WHERE NOMBRE = " + zona.getNombre();
+		String sql = "DELETE FROM ZONA";
+		sql += " WHERE NOMBRE = '" + zona.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
