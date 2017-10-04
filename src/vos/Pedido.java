@@ -1,13 +1,14 @@
 package vos;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Pedido {
 	
 	////Atributos////
-	
+	@JsonProperty(value="id")
+	private Long id;
 	/**
 	 * fecha del pedido.
 	 */
@@ -39,22 +40,39 @@ public class Pedido {
 	private Long id_prod;
 
 	/**
+	 * @param id
 	 * @param fecha
 	 * @param hora
 	 * @param id_cliente
 	 * @param nombre_Rest
 	 * @param id_prod
 	 */
-	public Pedido(@JsonProperty(value="fecha")Date fecha, 
+	public Pedido(@JsonProperty(value="id")Long id,
+			@JsonProperty(value="fecha")Date fecha, 
 			@JsonProperty(value="hora")int hora,
 			@JsonProperty(value="cliente")Long id_cliente, 
 			@JsonProperty(value="nombre_Rest")String nombre_Rest,
 			@JsonProperty(value="id_prod")Long id_prod) {
+		this.id = id;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.id_cliente = id_cliente;
 		this.nombre_Rest = nombre_Rest;
 		this.id_prod = id_prod;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
