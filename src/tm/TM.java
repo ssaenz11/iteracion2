@@ -12,20 +12,37 @@ import java.util.Properties;
 import dao.DAOTablaAcompañamiento;
 import dao.DAOTablaBebida;
 import dao.DAOTablaCliente;
+import dao.DAOTablaRestaurante;
+import dao.DAOTablaZona;
+import dao.DAOTablaZona;
 import dao.DAOTablaEntrada;
+import dao.DAOTablaIngrediente;
+import dao.DAOTablaRestaurante;
+import dao.DAOTablaZona;
 import dao.DAOTablaMenu;
+import dao.DAOTablaPedido;
+import dao.DAOTablaRestaurante;
+import dao.DAOTablaUsuario;
+import dao.DAOTablaZona;
 import dao.DAOTablaPlatoFuerte;
 import dao.DAOTablaPostre;
 import dao.DAOTablaPreferenciaCliente;
+import dao.DAOTablaRestaurante;
 import dao.DAOTablaServicioProducto;
 import vos.Acompañamiento;
 import vos.Bebida;
 import vos.Cliente;
 import vos.Entrada;
+import vos.Ingrediente;
 import vos.Menu;
+import vos.Pedido;
+import vos.Usuario;
 import vos.PlatoFuerte;
 import vos.Postre;
 import vos.PreferenciaCliente;
+import vos.Restaurante;
+import vos.Usuario;
+import vos.Zona;
 import vos.ServicioProducto;
 
 
@@ -451,9 +468,190 @@ public class TM {
 		return PreferenciaClientes;
 	}
 	
-	
-	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Clientes de la base de datos.
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Ingrediente> darIngredientes() throws Exception {
+		List<Ingrediente> ingrediente;
+		DAOTablaIngrediente daoIngredientes = new DAOTablaIngrediente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredientes.setConn(conn);
+			ingrediente = daoIngredientes.darIngredientes();
 
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return ingrediente;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Clientes de la base de datos.
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Pedido> darPedidos() throws Exception {
+		List<Pedido> pedido;
+		DAOTablaPedido daoPedido = new DAOTablaPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedido.setConn(conn);
+			pedido = daoPedido.darPedidos();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return pedido;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Clientes de la base de datos.
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Restaurante> darRestaurantes() throws Exception {
+		List<Restaurante> restaurante;
+		DAOTablaRestaurante daoRestaurante = new DAOTablaRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurante.setConn(conn);
+			restaurante = daoRestaurante.darRestaurantes();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurante.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return restaurante;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Clientes de la base de datos.
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Usuario> darUsuarios() throws Exception {
+		List<Usuario> usuario;
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			usuario = daoUsuario.darUsuarios();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuario;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Clientes de la base de datos.
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Zona> darZonas() throws Exception {
+		List<Zona> zona;
+		DAOTablaZona daoZona = new DAOTablaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZona.setConn(conn);
+			zona = daoZona.darZonas();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return zona;
+	}
 	/**
 	 * Metodo que modela la transaccion que busca el/los Clientes en la base de datos con el nombre entra como parametro.
 	 * @param name - Nombre del Cliente a buscar. name != null
@@ -684,6 +882,159 @@ public class TM {
 	}
 	
 	/**
+	 * Metodo que modela la transaccion que busca el/los Clientes en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del Cliente a buscar. name != null
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Ingrediente> buscarIngredientePorName(String name) throws Exception {
+		List<Ingrediente> Ingredientes;
+		DAOTablaIngrediente daoIngredientes = new DAOTablaIngrediente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredientes.setConn(conn);
+			Ingredientes = daoIngredientes.buscarIngredientePorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return Ingredientes;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el/los Clientes en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del Cliente a buscar. name != null
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Restaurante> buscarRestaurantePorName(String name) throws Exception {
+		List<Restaurante> restaurantes;
+		DAOTablaRestaurante daoRestaurante = new DAOTablaRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurante.setConn(conn);
+			restaurantes = daoRestaurante.buscarRestaurantePorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurante.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return restaurantes;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el/los Clientes en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del Cliente a buscar. name != null
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Usuario> buscarUsuarioPorName(String name) throws Exception {
+		List<Usuario> usuarios;
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			usuarios = daoUsuario.buscarUsuarioPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuarios;
+	}
+	
+	
+	/**
+	 * Metodo que modela la transaccion que busca el/los Clientes en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del Cliente a buscar. name != null
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Zona> buscarZonaPorName(String name) throws Exception {
+		List<Zona> zonas;
+		DAOTablaZona daoZona = new DAOTablaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZona.setConn(conn);
+			zonas = daoZona.buscarZonaPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return zonas;
+	}
+	
+	/**
 	 * Metodo que modela la transaccion que busca el Cliente en la base de datos con el id que entra como parametro.
 	 * @param name - Id del Cliente a buscar. name != null
 	 * @return Cliente - Resultado de la busqueda
@@ -760,6 +1111,81 @@ public class TM {
 		return Menu;
 	}
 	
+	/**
+	 * Metodo que modela la transaccion que busca el Cliente en la base de datos con el id que entra como parametro.
+	 * @param name - Id del Cliente a buscar. name != null
+	 * @return Cliente - Resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Pedido buscarPedidoPorId(Long id) throws Exception {
+		Pedido pedido;
+		DAOTablaPedido daoPedido = new DAOTablaPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedido.setConn(conn);
+			pedido = daoPedido.buscarPedidoPorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return pedido;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el Cliente en la base de datos con el id que entra como parametro.
+	 * @param name - Id del Cliente a buscar. name != null
+	 * @return Cliente - Resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Usuario buscarUsuarioPorId(Long id) throws Exception {
+		Usuario usuario;
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			usuario = daoUsuario.buscarUsuarioPorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuario;
+	}
 	
 	/**
 	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
@@ -1097,6 +1523,191 @@ public class TM {
 	}
 	
 	/**
+	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
+	 * <b> post: </b> se ha agregado el Cliente que entra como parametro
+	 * @param Cliente - el Cliente a agregar. Cliente != null
+	 * @throws Exception - cualquier error que se genere agregando el Cliente
+	 */
+	public void addIngrediente(Ingrediente ingrediente) throws Exception {
+		DAOTablaIngrediente daoIngredientes = new DAOTablaIngrediente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredientes.setConn(conn);
+			daoIngredientes.addIngrediente(ingrediente);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
+	 * <b> post: </b> se ha agregado el Cliente que entra como parametro
+	 * @param Cliente - el Cliente a agregar. Cliente != null
+	 * @throws Exception - cualquier error que se genere agregando el Cliente
+	 */
+	public void addPedido(Pedido Pedido) throws Exception {
+		DAOTablaPedido daoPedido = new DAOTablaPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedido.setConn(conn);
+			daoPedido.addPedido(Pedido);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
+	 * <b> post: </b> se ha agregado el Cliente que entra como parametro
+	 * @param Cliente - el Cliente a agregar. Cliente != null
+	 * @throws Exception - cualquier error que se genere agregando el Cliente
+	 */
+	public void addRestaurante(Restaurante Restaurante) throws Exception {
+		DAOTablaRestaurante daoRestaurante = new DAOTablaRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurante.setConn(conn);
+			daoRestaurante.addRestaurante(Restaurante);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurante.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
+	 * <b> post: </b> se ha agregado el Cliente que entra como parametro
+	 * @param Cliente - el Cliente a agregar. Cliente != null
+	 * @throws Exception - cualquier error que se genere agregando el Cliente
+	 */
+	public void addUsuario(Usuario usuario) throws Exception {
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			daoUsuario.addUsuario(usuario);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
+	 * <b> post: </b> se ha agregado el Cliente que entra como parametro
+	 * @param Cliente - el Cliente a agregar. Cliente != null
+	 * @throws Exception - cualquier error que se genere agregando el Cliente
+	 */
+	public void addZona(Zona Zona) throws Exception {
+		DAOTablaZona daoZona = new DAOTablaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZona.setConn(conn);
+			daoZona.addZona(Zona);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
 	 * Metodo que modela la transaccion que agrega los Clientes que entran como parametro a la base de datos.
 	 * <b> post: </b> se han agregado los Clientes que entran como parametro
 	 * @param Clientes - objeto que modela una lista de Clientes y se estos se pretenden agregar. Clientes != null
@@ -1174,6 +1785,226 @@ public class TM {
 		} finally {
 			try {
 				daoMenus.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega los Clientes que entran como parametro a la base de datos.
+	 * <b> post: </b> se han agregado los Clientes que entran como parametro
+	 * @param ingredientes - objeto que modela una lista de Clientes y se estos se pretenden agregar. Clientes != null
+	 * @throws Exception - cualquier error que se genera agregando los Clientes
+	 */
+	public void addIngredientes(List<Ingrediente> ingredientes) throws Exception {
+		DAOTablaIngrediente daoIngredientes = new DAOTablaIngrediente();
+		try 
+		{
+			//////transaccion - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoIngredientes.setConn(conn);
+			Iterator<Ingrediente> it = ingredientes.iterator();
+			while(it.hasNext())
+			{
+				daoIngredientes.addIngrediente(it.next());;
+			}
+			
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega los Clientes que entran como parametro a la base de datos.
+	 * <b> post: </b> se han agregado los Clientes que entran como parametro
+	 * @param ingredientes - objeto que modela una lista de Clientes y se estos se pretenden agregar. Clientes != null
+	 * @throws Exception - cualquier error que se genera agregando los Clientes
+	 */
+	public void addPedidos(List<Pedido> pedidos) throws Exception {
+		DAOTablaPedido daoPedido = new DAOTablaPedido();
+		try 
+		{
+			//////transaccion - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoPedido.setConn(conn);
+			Iterator<Pedido> it = pedidos.iterator();
+			while(it.hasNext())
+			{
+				daoPedido.addPedido(it.next());;
+			}
+			
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega los Clientes que entran como parametro a la base de datos.
+	 * <b> post: </b> se han agregado los Clientes que entran como parametro
+	 * @param ingredientes - objeto que modela una lista de Clientes y se estos se pretenden agregar. Clientes != null
+	 * @throws Exception - cualquier error que se genera agregando los Clientes
+	 */
+	public void addRestaurantes(List<Restaurante> restaurantes) throws Exception {
+		DAOTablaRestaurante daoRestaurante = new DAOTablaRestaurante();
+		try 
+		{
+			//////transaccion - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoRestaurante.setConn(conn);
+			Iterator<Restaurante> it = restaurantes.iterator();
+			while(it.hasNext())
+			{
+				daoRestaurante.addRestaurante(it.next());;
+			}
+			
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoRestaurante.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega los Clientes que entran como parametro a la base de datos.
+	 * <b> post: </b> se han agregado los Clientes que entran como parametro
+	 * @param ingredientes - objeto que modela una lista de Clientes y se estos se pretenden agregar. Clientes != null
+	 * @throws Exception - cualquier error que se genera agregando los Clientes
+	 */
+	public void addUsuarios(List<Usuario> usuarios) throws Exception {
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			//////transaccion - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoUsuario.setConn(conn);
+			Iterator<Usuario> it = usuarios.iterator();
+			while(it.hasNext())
+			{
+				daoUsuario.addUsuario(it.next());;
+			}
+			
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que agrega los Clientes que entran como parametro a la base de datos.
+	 * <b> post: </b> se han agregado los Clientes que entran como parametro
+	 * @param ingredientes - objeto que modela una lista de Clientes y se estos se pretenden agregar. Clientes != null
+	 * @throws Exception - cualquier error que se genera agregando los Clientes
+	 */
+	public void addZonas(List<Zona> zonas) throws Exception {
+		DAOTablaZona daoZona = new DAOTablaZona();
+		try 
+		{
+			//////transaccion - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoZona.setConn(conn);
+			Iterator<Zona> it = zonas.iterator();
+			while(it.hasNext())
+			{
+				daoZona.addZona(it.next());;
+			}
+			
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoZona.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -1429,6 +2260,188 @@ public class TM {
 		} finally {
 			try {
 				daoMenus.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Metodo que modela la transaccion que actualiza el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a actualizar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void updateIngrediente(Ingrediente ingrediente) throws Exception {
+		DAOTablaIngrediente daoIngredientes = new DAOTablaIngrediente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredientes.setConn(conn);
+			daoIngredientes.updateIngrediente(ingrediente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+
+	/**
+	 * Metodo que modela la transaccion que actualiza el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a actualizar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void updatePedido(Pedido pedido) throws Exception {
+		DAOTablaPedido daoPedidos = new DAOTablaPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedidos.setConn(conn);
+			daoPedidos.updatePedido(pedido);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedidos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a actualizar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void updateRestaurante(Restaurante restaurante) throws Exception {
+		DAOTablaRestaurante daoRestaurantes = new DAOTablaRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurantes.setConn(conn);
+			daoRestaurantes.updateRestaurante(restaurante);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurantes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a actualizar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void updateUsuario(Usuario usuario) throws Exception {
+		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuarios.setConn(conn);
+			daoUsuarios.updateUsuario(usuario);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a actualizar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void updateZona(Zona zona) throws Exception {
+		DAOTablaZona daoZonas = new DAOTablaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZonas.setConn(conn);
+			daoZonas.updateZona(zona);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZonas.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -1763,4 +2776,183 @@ public class TM {
 		}
 	}
 	
+	/**
+	 * Metodo que modela la transaccion que elimina el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a eliminar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void deleteIngrediente(Ingrediente ingrediente) throws Exception {
+		DAOTablaIngrediente daoIngrediente = new DAOTablaIngrediente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngrediente.setConn(conn);
+			daoIngrediente.deleteIngrediente(ingrediente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngrediente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a eliminar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void deletePedido(Pedido pedido) throws Exception {
+		DAOTablaPedido daoPedido = new DAOTablaPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedido.setConn(conn);
+			daoPedido.deletePedido(pedido);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a eliminar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void deleteRestaurante(Restaurante restaurante) throws Exception {
+		DAOTablaRestaurante daoRestaurante = new DAOTablaRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurante.setConn(conn);
+			daoRestaurante.deleteRestaurante(restaurante);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurante.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a eliminar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void deleteUsuario(Usuario usuario) throws Exception {
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			daoUsuario.deleteUsuario(usuario);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a eliminar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
+	public void deleteZona(Zona zona) throws Exception {
+		DAOTablaZona daoZona = new DAOTablaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZona.setConn(conn);
+			daoZona.deleteZona(zona);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 }
