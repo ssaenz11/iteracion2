@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -174,6 +175,8 @@ public class TM {
 		}
 		return Clientes;
 	}
+	
+	
 	
 	/**
 	 * Metodo que modela la transaccion que retorna todos los Administradors de la base de datos.
@@ -1361,6 +1364,44 @@ public class TM {
 			this.conn = darConexion();
 			daoPedido.setConn(conn);
 			pedido = daoPedido.buscarPedidoPorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return pedido;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el Cliente en la base de datos con el id que entra como parametro.
+	 * @param name - Id del Cliente a buscar. name != null
+	 * @return Cliente - Resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public ArrayList<Pedido >buscarPedidoPorIdCliente(Long id) throws Exception {
+		ArrayList<Pedido > pedido =new ArrayList<Pedido>();
+		DAOTablaPedido daoPedido = new DAOTablaPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedido.setConn(conn);
+			pedido = daoPedido.buscarPedidoPorIdCliente(id);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

@@ -118,6 +118,36 @@ public class DAOTablaPedido {
 
 		return pedido;
 	}
+	
+	/**
+	 * Metodo que busca el video con el id que entra como parametro.
+	 * @param name - Id de el video a buscar
+	 * @return Video encontrado
+	 * @throws SQLException - Cualquier error que la base de datos arroje.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public ArrayList<Pedido> buscarPedidoPorIdCliente(Long id) throws SQLException, Exception 
+	{
+		ArrayList<Pedido> pedido = new ArrayList<>();
+
+		String sql = "SELECT * FROM PEDIDO WHERE fk_cliente =" + id;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		if(rs.next()) {
+
+			String fecha = rs.getString("FECHA");
+			
+			Long id_cliente = rs.getLong("id");
+			String nombre_Rest = rs.getString("fk_nomRest");
+			Long id_prod = rs.getLong("fk_producto");
+			pedido.add(new Pedido(id_cliente, fecha, id , nombre_Rest, id_prod));
+		}
+
+		return pedido;
+	}
 
 	/**
 	 * Metodo que agrega el Cliente que entra como parametro a la base de datos.
