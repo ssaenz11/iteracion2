@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Properties;
 
 import dao.DAOTablaAcompañamiento;
+import dao.DAOTablaAdministrador;
 import dao.DAOTablaBebida;
 import dao.DAOTablaCliente;
 import dao.DAOTablaEntrada;
@@ -19,6 +20,7 @@ import dao.DAOTablaPostre;
 import dao.DAOTablaPreferenciaCliente;
 import dao.DAOTablaServicioProducto;
 import vos.Acompañamiento;
+import vos.Administrador;
 import vos.Bebida;
 import vos.Cliente;
 import vos.Entrada;
@@ -152,6 +154,43 @@ public class TM {
 			}
 		}
 		return Clientes;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Administradors de la base de datos.
+	 * @return ListaAdministradors - objeto que modela  un arreglo de Administradors. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Administrador> darAdministradors() throws Exception {
+		List<Administrador> Administradors;
+		DAOTablaAdministrador daoAdministradors = new DAOTablaAdministrador();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoAdministradors.setConn(conn);
+			Administradors = daoAdministradors.darAdministradors();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoAdministradors.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return Administradors;
 	}
 	
 	/**
@@ -721,6 +760,44 @@ public class TM {
 		return Cliente;
 	}
 	
+	/**
+	 * Metodo que modela la transaccion que busca el Administrador en la base de datos con el id que entra como parametro.
+	 * @param name - Id del Administrador a buscar. name != null
+	 * @return Administrador - Resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Administrador buscarAdministradorPorId(Long id) throws Exception {
+		Administrador Administrador;
+		DAOTablaAdministrador daoAdministradors = new DAOTablaAdministrador();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoAdministradors.setConn(conn);
+			Administrador = daoAdministradors.buscarAdministradorPorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoAdministradors.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return Administrador;
+	}
+	
 	
 	/**
 	 * Metodo que modela la transaccion que busca el Cliente en la base de datos con el id que entra como parametro.
@@ -788,6 +865,45 @@ public class TM {
 		} finally {
 			try {
 				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Administrador a la base de datos.
+	 * <b> post: </b> se ha agregado el Administrador que entra como parametro
+	 * @param Administrador - el Administrador a agregar. Administrador != null
+	 * @throws Exception - cualquier error que se genere agregando el Administrador
+	 */
+	public void addAdministrador(Administrador Administrador) throws Exception {
+		DAOTablaAdministrador daoAdministradors = new DAOTablaAdministrador();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoAdministradors.setConn(conn);
+			daoAdministradors.addAdministrador(Administrador);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoAdministradors.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -1465,6 +1581,42 @@ public class TM {
 		} finally {
 			try {
 				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el Administrador que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Administrador que entra como parametro
+	 * @param Administrador - Administrador a eliminar. Administrador != null
+	 * @throws Exception - cualquier error que se genera actualizando los Administradors
+	 */
+	public void deleteAdministrador(Administrador Administrador) throws Exception {
+		DAOTablaAdministrador daoAdministradors = new DAOTablaAdministrador();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoAdministradors.setConn(conn);
+			daoAdministradors.deleteAdministrador(Administrador);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoAdministradors.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
