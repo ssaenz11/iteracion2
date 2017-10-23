@@ -17,9 +17,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.TM;
-import vos.Acompañamiento;
+
 import vos.AdministradorRestaurante;
 import vos.Cliente;
+import vos.Ingrediente;
+import vos.Producto;
 import vos.Restaurante;
 
 @Path("AdministradorRestaurante")
@@ -64,52 +66,6 @@ public class AdministradorRestauranteService
 		return Response.status(200).entity(AdministradorRestaurantes).build();
 	}
 
-	 /**
-     * Metodo que expone servicio REST usando GET que busca el AdministradorRestaurante con el id que entra como parametro
-     * <b>URL: </b> http://"ip o nombre de host":8080/AdministradorRestauranteAndes/rest/AdministradorRestaurantes/<<id>>" para la busqueda"
-     * @param name - Nombre del AdministradorRestaurante a buscar que entra en la URL como parametro 
-     * @return Json con el/los AdministradorRestaurantes encontrados con el nombre que entra como parametro o json con 
-     * el error que se produjo
-     */
-	@GET
-	@Path( "{id: \\d+}" )
-	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getAdministradorRestaurante( @PathParam( "id" ) Long id )
-	{
-		TM tm = new TM( getPath( ) );
-		try
-		{
-			AdministradorRestaurante v = tm.buscarAdministradorRestaurantePorId( id );
-			return Response.status( 200 ).entity( v ).build( );			
-		}
-		catch( Exception e )
-		{
-			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
-		}
-	}
-
-//    /**
-//     * Metodo que expone servicio REST usando GET que busca el AdministradorRestaurante con el nombre que entra como parametro
-//     * <b>URL: </b> http://"ip o nombre de host":8080/AdministradorRestauranteAndes/rest/AdministradorRestaurantes/nombre/nombre?nombre=<<nombre>>" para la busqueda"
-//     * @param name - Nombre del AdministradorRestaurante a buscar que entra en la URL como parametro 
-//     * @return Json con el/los AdministradorRestaurantes encontrados con el nombre que entra como parametro o json con 
-//     * el error que se produjo
-//     */
-//	@GET
-//	@Path( "{nombre}" )
-//	@Produces( { MediaType.APPLICATION_JSON } )
-//	public Response getAdministradorRestauranteName( @QueryParam("nombre") String name) {
-//		TM tm = new TM(getPath());
-//		List<AdministradorRestaurante> AdministradorRestaurantes;
-//		try {
-//			if (name == null || name.length() == 0)
-//				throw new Exception("Nombre del AdministradorRestaurante no valido");
-//			AdministradorRestaurantes = tm.buscarAdministradorRestaurantesPorName(name);
-//		} catch (Exception e) {
-//			return Response.status(500).entity(doErrorMessage(e)).build();
-//		}
-//		return Response.status(200).entity(AdministradorRestaurantes).build();
-//	}
 
 
     /**
@@ -131,51 +87,7 @@ public class AdministradorRestauranteService
 		return Response.status(200).entity(AdministradorRestaurante).build();
 	}
 	
-//    /**
-//     * Metodo que expone servicio REST usando POST que agrega los AdministradorRestaurantes que recibe en Json
-//     * <b>URL: </b> http://"ip o nombre de host":8080/AdministradorRestauranteAndes/rest/AdministradorRestaurantes/varios
-//     * @param AdministradorRestaurantes - AdministradorRestaurantes a agregar. 
-//     * @return Json con el AdministradorRestaurante que agrego o Json con el error que se produjo
-//     */
-//	@POST
-//	@Path("/varios")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response addAdministradorRestaurante(List<AdministradorRestaurante> AdministradorRestaurantes) {
-//		TM tm = new TM(getPath());
-//		try {
-//			tm.addAdministradorRestaurantes(AdministradorRestaurantes);
-//		} catch (Exception e) {
-//			return Response.status(500).entity(doErrorMessage(e)).build();
-//		}
-//		return Response.status(200).entity(AdministradorRestaurantes).build();
-//	}
-	
-//    /**
-//     * Metodo que expone servicio REST usando PUT que actualiza el AdministradorRestaurante que recibe en Json
-//     * <b>URL: </b> http://"ip o nombre de host":8080/AdministradorRestauranteAndes/rest/AdministradorRestaurantes
-//     * @param AdministradorRestaurante - AdministradorRestaurante a actualizar. 
-//     * @return Json con el AdministradorRestaurante que actualizo o Json con el error que se produjo
-//     */
-//	@PUT
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response updateAdministradorRestaurante(AdministradorRestaurante AdministradorRestaurante) {
-//		TM tm = new TM(getPath());
-//		try {
-//			tm.updateAdministradorRestaurante(AdministradorRestaurante);
-//		} catch (Exception e) {
-//			return Response.status(500).entity(doErrorMessage(e)).build();
-//		}
-//		return Response.status(200).entity(AdministradorRestaurante).build();
-//	}
-//	
-//    /**
-//     * Metodo que expone servicio REST usando DELETE que elimina el AdministradorRestaurante que recibe en Json
-//     * <b>URL: </b> http://"ip o nombre de host":8080/AdministradorRestauranteAndes/rest/AdministradorRestaurantes
-//     * @param AdministradorRestaurante - AdministradorRestaurante a aliminar. 
-//     * @return Json con el AdministradorRestaurante que elimino o Json con el error que se produjo
-//     */
+
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -254,6 +166,160 @@ public class AdministradorRestauranteService
 		}
 		return Response.status(200).entity(restaurante).build();
 	}
+	
+	
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los Clientes de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+	 * @return Json con todos los Clientes de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("/Producto")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getProductos() {
+		TM tm = new TM(getPath());
+		List<Producto> Producto;
+		try {
+			Producto = tm.darProducto();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Producto).build();
+	}
+
+
+    
+
+    /**
+     * Metodo que expone servicio REST usando POST que agrega el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes/Cliente
+     * @param Producto - Cliente a agregar
+     * @return Json con el Cliente que agrego o Json con el error que se produjo
+     */
+	@POST
+	@Path("/Producto")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addProducto(Producto Producto) {
+		TM tm = new TM(getPath());
+		try {
+			tm.addProducto(Producto);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Producto).build();
+	}
+	
+	
+	 /**
+     * Metodo que expone servicio REST usando PUT que actualiza el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+     * @param restaurante - Cliente a actualizar. 
+     * @return Json con el Cliente que actualizo o Json con el error que se produjo
+     */
+	@PUT
+	@Path("/Producto")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateProducto(Producto restaurante) {
+		TM tm = new TM(getPath());
+		try {
+			tm.updateProducto(restaurante);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(restaurante).build();
+	}
+	
+	
+	
+	  /**
+     * Metodo que expone servicio REST usando DELETE que elimina el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+     * @param Producto - Cliente a aliminar. 
+     * @return Json con el Cliente que elimino o Json con el error que se produjo
+     */
+	@DELETE
+	@Path("/Producto")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteProducto(Producto Producto) {
+		TM tm = new TM(getPath());
+		try {
+			tm.deleteProducto(Producto);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Producto).build();
+	}
+	
+	
+	
+	 /**
+     * Metodo que expone servicio REST usando POST que agrega el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes/Cliente
+     * @param Ingrediente - Cliente a agregar
+     * @return Json con el Cliente que agrego o Json con el error que se produjo
+     */
+	@POST
+	@Path("/Ingrediente")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addIngrediente(Ingrediente Ingrediente) {
+		TM tm = new TM(getPath());
+		try {
+			tm.addIngrediente(Ingrediente);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Ingrediente).build();
+	}
+	
+	
+	 /**
+     * Metodo que expone servicio REST usando PUT que actualiza el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+     * @param restaurante - Cliente a actualizar. 
+     * @return Json con el Cliente que actualizo o Json con el error que se produjo
+     */
+	@PUT
+	@Path("/Ingrediente")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateIngrediente(Ingrediente restaurante) {
+		TM tm = new TM(getPath());
+		try {
+			tm.updateIngrediente(restaurante);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(restaurante).build();
+	}
+	
+	
+	
+	  /**
+     * Metodo que expone servicio REST usando DELETE que elimina el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+     * @param Ingrediente - Cliente a aliminar. 
+     * @return Json con el Cliente que elimino o Json con el error que se produjo
+     */
+	@DELETE
+	@Path("/Ingrediente")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteIngrediente(Ingrediente Ingrediente) {
+		TM tm = new TM(getPath());
+		try {
+			tm.deleteIngrediente(Ingrediente);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Ingrediente).build();
+	}
+	
+	
 	
 	
 	

@@ -18,7 +18,7 @@ public class Producto
 	 * id_restaurante del producto
 	 */
 	@JsonProperty(value="id_restaurante")
-	private Long id_restaurante;
+	private int id_restaurante;
 
 	/**
 	 * precio del producto
@@ -37,24 +37,72 @@ public class Producto
 	 */
 	@JsonProperty(value="descripcion")
 	private String descripcion  ;
+	
+	/**
+	 * tipo de producto 
+	 */
+	
+	@JsonProperty(value = "tipo")
+	private String tipo;
+	
+	@JsonProperty(value = "equ")
+	private String equi;
+	
+	
+	/**
+	 * 
+	 * @param id
+	 * @param id_restaurante
+	 * @param descripcion
+	 * @param nombre
+	 * @param precio
+	 */
 
-	public Producto(@JsonProperty(value="cantidad")int id,
-			@JsonProperty(value="id_restaurante")Long id_restaurante,
+	public Producto(@JsonProperty(value="cantidad")int CANTIDAD,
+			@JsonProperty(value="id_restaurante")int id_restaurante,
 			@JsonProperty(value="descripcion")String descripcion,
 			@JsonProperty(value="nombre")String nombre,
-			@JsonProperty(value="precio")double precio)
+			@JsonProperty(value="precio")double precio,
+			@JsonProperty(value="tipo")String tipo,
+			@JsonProperty(value="equ")String  nombreEqu)
 	{
 		super();
-		this.cantidad= id;
+		this.cantidad= CANTIDAD;
 		this.id_restaurante= id_restaurante;
 		this.descripcion = descripcion;
 		this.nombre= nombre;
 		this.precio= precio;
+		this.tipo = tipo;
+		this.equi = nombreEqu;
 
 
 	}
 
 	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+
+
+	public String getEqui() {
+		return equi;
+	}
+
+
+
+	public void setEqui(String equi) {
+		this.equi = equi;
+	}
+
+
 
 	public int getCantidad() {
 		return cantidad;
@@ -68,11 +116,11 @@ public class Producto
 
 
 
-	public Long getId_restaurante() {
+	public int getId_restaurante() {
 		return id_restaurante;
 	}
 
-	public void setId_restaurante(Long id_restaurante) {
+	public void setId_restaurante(int id_restaurante) {
 		this.id_restaurante = id_restaurante;
 	}
 

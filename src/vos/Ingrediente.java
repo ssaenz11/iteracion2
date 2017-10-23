@@ -24,6 +24,12 @@ public class Ingrediente {
 	private String traduccion;
 	
 	/**
+	 * nombre del ingrediente
+	 */
+	@JsonProperty(value="nombreequ")
+	private String nombreequ;
+	
+	/**
 	 * 
 	 * @param nombre
 	 * @param descripcion
@@ -31,12 +37,28 @@ public class Ingrediente {
 	 */
 	public Ingrediente(@JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="descripcion")String descripcion,
-			@JsonProperty(value="traduccion")String traduccion)
+			@JsonProperty(value="traduccion")String traduccion,
+			@JsonProperty(value="nombre")String nombreequ)
 	{
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.traduccion = traduccion;
+		this.nombreequ = nombreequ;
 	}
+	
+	
+
+	public String getNombreequ() {
+		return nombreequ;
+	}
+
+
+
+	public void setNombreequ(String nombreequ) {
+		this.nombreequ = nombreequ;
+	}
+
+
 
 	/**
 	 * @return the nombre
