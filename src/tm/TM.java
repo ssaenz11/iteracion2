@@ -2048,6 +2048,42 @@ public class TM {
 	 * @param Cliente - Cliente a actualizar. Cliente != null
 	 * @throws Exception - cualquier error que se genera actualizando los Clientes
 	 */
+	public void surtirRestaurante(String nombre, int cantidad) throws Exception {
+		DAOTablaProducto daoProducto = new DAOTablaProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProducto.setConn(conn);
+			daoProducto.surtirRestaurante( nombre,  cantidad);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProducto.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el Cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el Cliente que entra como parametro
+	 * @param Cliente - Cliente a actualizar. Cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los Clientes
+	 */
 	public void updateUsuario(Usuario usuario) throws Exception {
 		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
 		try 

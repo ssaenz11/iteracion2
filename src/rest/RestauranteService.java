@@ -110,6 +110,8 @@ public class RestauranteService {
 		return Response.status(200).entity(restaurante).build();
 	}
 	
+	
+	
 //    /**
 //     * Metodo que expone servicio REST usando POST que agrega los Clientes que recibe en Json
 //     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes/varios
@@ -148,6 +150,29 @@ public class RestauranteService {
 		}
 		return Response.status(200).entity(restaurante).build();
 	}
+	
+	/**
+     * Metodo que expone servicio REST usando PUT que actualiza el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+     * @param restaurante - Cliente a actualizar. 
+     * @return Json con el Cliente que actualizo o Json con el error que se produjo
+     */
+	@PUT
+	@Path("/surtimientoRestaurante /nombreRestaurante/{nombre}/cantidad/{num}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response surtirRestaurante(@javax.ws.rs.PathParam("nombre") String nombre, @javax.ws.rs.PathParam("num") int cantidad) {
+		TM tm = new TM(getPath());
+		try {
+			tm.surtirRestaurante(nombre, cantidad);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(nombre).build(); // funcionará???
+	}
+	
+	
+	
 	
 	
 	

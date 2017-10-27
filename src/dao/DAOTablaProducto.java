@@ -136,7 +136,31 @@ public class DAOTablaProducto {
 		sql += "tipo ='" + Producto.getTipo()+ "'";
 		sql += "cantidad=" + Producto.getCantidad()+ " ";
 		
-		sql += " WHERE NOMBRE = " + Producto.getNombre()+ "'";
+		sql += " WHERE NOMBRE = '" + Producto.getNombre()+ "'";
+
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+	
+	
+	/**
+	 * Metodo que actualiza el Cliente que entra como parametro en la base de datos.
+	 * @param Cliente - el Cliente a actualizar. Cliente !=  null
+	 * <b> post: </b> se ha actualizado el Cliente en la base de datos en la transaction actual. pendiente que el Cliente master
+	 * haga commit para que los cambios bajen a la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el Cliente.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public void surtirRestaurante(String nombre, int cantidad) throws SQLException, Exception {
+
+		String sql = "UPDATE Producto_tabla SET ";
+		
+		
+		sql += "cantidad=" + cantidad + " ";
+		
+		sql += " WHERE Restaurante = '" + nombre+ "'";
 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
