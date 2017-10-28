@@ -141,6 +141,31 @@ public class DAOTablaMenu
 	}
 	
 	/**
+	 * Metodo que agrega el Menu que entra como parametro a la base de datos.
+	 * @param Menu - el Menu a agregar. Menu !=  null
+	 * <b> post: </b> se ha agregado el Menu a la base de datos en la transaction actual. pendiente que el Menu master
+	 * haga commit para que el Menu baje  a la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el Menu a la base de datos
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public void addMenuEquivalencia(Menu Menu) throws SQLException, Exception {
+
+		String sql = "INSERT INTO Menu_TABLA VALUES (";
+	    sql += Menu.getId()+ ",'";
+		sql += Menu.getId_entrada() + "',";
+		sql += Menu.getValor() + ",'";
+		sql += Menu.getId_postre() + "','";
+		sql += Menu.getId_bebida()+ "','";
+		sql += Menu.getId_plato_fuerte()+ "')";
+		
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+	/**
 	 * Metodo que actualiza el Menu que entra como parametro en la base de datos.
 	 * @param Menu - el Menu a actualizar. Menu !=  null
 	 * <b> post: </b> se ha actualizado el Menu en la base de datos en la transaction actual. pendiente que el Menu master

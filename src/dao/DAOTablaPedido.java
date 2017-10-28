@@ -81,8 +81,9 @@ public class DAOTablaPedido {
 			
 			Long id_cliente = rs.getLong("fk_cliente");
 			String nombre_Rest = rs.getString("fk_nomRest");
-			Long id_prod = rs.getLong("fk_producto");
-			pedidos.add(new Pedido(id, fecha,  id_cliente, nombre_Rest, id_prod));
+			String id_prod = rs.getString("fk_producto");
+			String estado = rs.getString("estado");
+			pedidos.add(new Pedido(id, fecha,  id_cliente, nombre_Rest, id_prod, estado));
 		}
 		return pedidos;
 	}
@@ -112,8 +113,9 @@ public class DAOTablaPedido {
 			
 			Long id_cliente = rs.getLong("fk_cliente");
 			String nombre_Rest = rs.getString("fk_nomRest");
-			Long id_prod = rs.getLong("fk_producto");
-			pedido =new Pedido(id, fecha,  id_cliente, nombre_Rest, id_prod);
+			String id_prod = rs.getString("fk_producto");
+			String estado = rs.getString("estado");
+			pedido =new Pedido(id, fecha,  id_cliente, nombre_Rest, id_prod, estado);
 		}
 
 		return pedido;
@@ -142,8 +144,9 @@ public class DAOTablaPedido {
 			
 			Long id_cliente = rs.getLong("id");
 			String nombre_Rest = rs.getString("fk_nomRest");
-			Long id_prod = rs.getLong("fk_producto");
-			pedido.add(new Pedido(id_cliente, fecha, id , nombre_Rest, id_prod));
+			String id_prod = rs.getString("fk_producto");
+			String estado = rs.getString("estado");
+			pedido.add(new Pedido(id_cliente, fecha, id , nombre_Rest, id_prod, estado));
 		}
 
 		return pedido;
@@ -159,15 +162,24 @@ public class DAOTablaPedido {
 	 */
 	public void addPedido(Pedido pedido) throws SQLException, Exception {
 
+		
+		// se hace con el producto equv
+		
+		DAOTablaProducto tabl = new DAOTablaProducto();
+		String prodEqu = tabl.buscarProductoPorName(pedido.getId_prod()).getEqui();
+		
+		
+		
 		String sql = "INSERT INTO PEDIDO VALUES (";
 	    sql += pedido.getId() + ", '";
 //	    String modi = new SimpleDateFormat("yyyy-MM-dd").format(pedido.getFecha());
-		sql += pedido.getFecha() + "',";
+		sql += pedido.getFecha() + "','";
 		
 		
-		sql += pedido.getId_prod() + ",";
+		sql += prodEqu + "',";
 		sql += pedido.getId_cliente() + ",'";
-		sql += pedido.getNombre_Rest() + "')";
+		sql += pedido.getNombre_Rest() + "','";
+		sql += pedido.getEstado() + "')";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -187,75 +199,16 @@ public class DAOTablaPedido {
 		
 		Menu Menu = null;
 
+		
+		// corregir esta parte con el sql 
+		
 		String sql2 = "SELECT * FROM Menu_TABLA WHERE ID =" + pedido.getId_prod();
 
 		PreparedStatement prepStmt2 = conn.prepareStatement(sql2);
 		recursos.add(prepStmt2);
 		ResultSet rs = prepStmt2.executeQuery();
-if(rs == null) {
-	// no es un menú
-	
-	
-	String sql3 = "UPDATE Postre_TABLA SET ";
-	sql3 += "CANTIDAD =" + "CANTIDAD-1" + " ";
-	;
-	
-	sql3 += " WHERE NOMBRE = '" + pedido.getId_prod()+"'";
 
-
-	PreparedStatement prepStmt3 = conn.prepareStatement(sql3);
-	recursos.add(prepStmt3);
-	prepStmt3.executeQuery();
-	
-	
-	//actualizacion 
-	
-	String sql4 = "UPDATE Bebida_TABLA SET ";
-	sql4 += "CANTIDAD =" + "CANTIDAD-1" + " ";
-	;
-	
-	sql4 += " WHERE NOMBRE = '" + pedido.getId_prod()+"'";
-
-
-	PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
-	recursos.add(prepStmt4);
-	prepStmt4.executeQuery();
-	
-	//--------------------------
-	
-	String sql5 = "UPDATE Entrada_TABLA SET ";
-	sql5 += "CANTIDAD =" + "CANTIDAD-1" + " ";
-	;
-	
-	sql5 += " WHERE NOMBRE = '" + pedido.getId_prod()+"'";
-	
-	
-
-	PreparedStatement prepStmt5 = conn.prepareStatement(sql5);
-	recursos.add(prepStmt5);
-	prepStmt5.executeQuery();
-	
-	//------------------------------
-	
-	
-	String sql6 = "UPDATE PlatoFuerte_TABLA SET ";
-	sql5 += "CANTIDAD =" + "CANTIDAD-1" + " ";
-	;
-	
-	sql5 += " WHERE NOMBRE = '" + pedido.getId_prod()+"'";
-	
-	
-
-	PreparedStatement prepStmt6 = conn.prepareStatement(sql6);
-	recursos.add(prepStmt6);
-	prepStmt5.executeQuery();
-	
-	
-	
-	
-	
-}
-else if(rs.next()) {
+if(rs.next()) {
 			double precio = rs.getDouble("PRECIO");
 			Long ID = rs.getLong("ID");
 			String entrada = rs.getString("ID_ENTRADA");
@@ -345,12 +298,8 @@ else if(rs.next()) {
 
 		String sql = "UPDATE PEDIDO SET ";
 
-		sql += "FECHA ='" + pedido.getFecha() + "',";
-		
-		sql += "fk_cliente =" + pedido.getId_cliente() + ",";
-		sql += "fk_nomRest ='" + pedido.getNombre_Rest()+ "',";
-		sql += "fk_producto ='" + pedido.getId_prod()+ "',";
-	
+		sql += "Estado ='" + pedido.getEstado()+ "' ";
+			
 		sql += " WHERE ID = " + pedido.getId();
 
 
@@ -370,7 +319,7 @@ else if(rs.next()) {
 	public void deletePedido(Pedido pedido) throws SQLException, Exception {
 
 		String sql = "DELETE FROM PEDIDO";
-		sql += " WHERE ID = " + pedido.getId();
+		sql += " WHERE ID = " + pedido.getId()+ " AND PEDIDO = 'ESPERA' ";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

@@ -237,6 +237,28 @@ public class RestauranteService {
 	}
 	
 	/**
+     * Metodo que expone servicio REST usando POST que agrega el Menu que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/MenuAndes/rest/Menus/Menu
+     * @param Menu - Menu a agregar
+     * @return Json con el Menu que agrego o Json con el error que se produjo
+     */
+	@POST
+	@Path("/MenuEquivalencias")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addMenuEqu(Menu Menu) {
+		TM tm = new TM(getPath());
+		try {
+			tm.addMenu(Menu);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(Menu).build();
+	}
+	
+	
+	
+	/**
      * Metodo que expone servicio REST usando DELETE que elimina el Menu que recibe en Json
      * <b>URL: </b> http://"ip o nombre de host":8080/MenuAndes/rest/Menus
      * @param Menu - Menu a aliminar. 

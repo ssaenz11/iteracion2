@@ -1251,6 +1251,43 @@ public class TM {
 	}
 	
 	/**
+	 * Metodo que modela la transaccion que agrega un solo Menu a la base de datos.
+	 * <b> post: </b> se ha agregado el Menu que entra como parametro
+	 * @param Menu - el Menu a agregar. Menu != null
+	 * @throws Exception - cualquier error que se genere agregando el Menu
+	 */
+	public void addMenuEquivalencia(Menu Menu) throws Exception {
+		DAOTablaMenu daoMenus = new DAOTablaMenu();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenus.setConn(conn);
+			daoMenus.addMenuEquivalencia(Menu);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenus.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
 	 * Metodo que modela la transaccion que agrega un solo ServicioProducto a la base de datos.
 	 * <b> post: </b> se ha agregado el ServicioProducto que entra como parametro
 	 * @param ServicioProducto - el ServicioProducto a agregar. ServicioProducto != null

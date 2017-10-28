@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 
 import tm.TM;
 import vos.Cliente;
+import vos.Pedido;
 import vos.Usuario;
 
 @Path("Usuarios")
@@ -187,4 +188,45 @@ public class UsuarioService {
 		}
 		return Response.status(200).entity(usuario).build();
 	}
+	
+    /**
+     * Metodo que expone servicio REST usando PUT que actualiza el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+     * @param pedido - Cliente a actualizar. 
+     * @return Json con el Cliente que actualizo o Json con el error que se produjo
+     */
+	@PUT
+	@Path("aceptarpedido")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updatePedido(Pedido pedido) {
+		TM tm = new TM(getPath());
+		try {
+			tm.updatePedido(pedido);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(pedido).build();
+	}
+	
+	 /**
+     * Metodo que expone servicio REST usando DELETE que elimina el Cliente que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/ClienteAndes/rest/Clientes
+     * @param pedido - Cliente a aliminar. 
+     * @return Json con el Cliente que elimino o Json con el error que se produjo
+     */
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deletePedido(Pedido pedido) {
+		TM tm = new TM(getPath());
+		try {
+			tm.deletePedido(pedido);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(pedido).build();
+	}
+	
+	
 }

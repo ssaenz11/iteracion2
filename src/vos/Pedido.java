@@ -33,7 +33,11 @@ public class Pedido {
 	 * id del producto que se solicito en el pedido.
 	 */
 	@JsonProperty(value="id_prod")
-	private Long id_prod;
+	private String id_prod;
+	
+	
+	@JsonProperty(value= "estado")
+	private String estado;
 
 	/**
 	 * @param id
@@ -48,13 +52,15 @@ public class Pedido {
 			
 			@JsonProperty(value="cliente")Long id_cliente, 
 			@JsonProperty(value="nombre_Rest")String nombre_Rest,
-			@JsonProperty(value="id_prod")Long id_prod) {
+			@JsonProperty(value="id_prod")String id_prod,
+			@JsonProperty(value="estado")String estado) {
 		this.id = id;
 		this.fecha = fecha;
 		
 		this.id_cliente = id_cliente;
 		this.nombre_Rest = nombre_Rest;
 		this.id_prod = id_prod;
+		this.estado = estado;
 	}
 
 	/**
@@ -118,15 +124,23 @@ public class Pedido {
 	/**
 	 * @return the id_prod
 	 */
-	public Long getId_prod() {
+	public String getId_prod() {
 		return id_prod;
 	}
 
 	/**
 	 * @param id_prod the id_prod to set
 	 */
-	public void setId_prod(Long id_prod) {
+	public void setId_prod(String id_prod) {
 		this.id_prod = id_prod;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	
